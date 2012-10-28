@@ -1,13 +1,13 @@
 GLOBALS
 ===========================
 
-Size/Number of edges = 21
+Size/Number of edges = 14
 Max degree = 9
-MAD Eigenvalue = 4.46758756582
-Scan Stat1 = 12
-Scan Stat1 = 12
-Num triangles = 12
-Clustering Coeff = 0.546666666667
-Average Path Length = -1.64444444444
+MAD Eigenvalue = 3.12138276827
+Scan Stat1 = 4
+Scan Stat1 = 4
+Num triangles = 0
+Clustering Coeff = 0.0
+Average Path Length = -2.04444444444
 Degree = 10
-Greedy MAD= 9.0
+Greedy MAD= 8.0
