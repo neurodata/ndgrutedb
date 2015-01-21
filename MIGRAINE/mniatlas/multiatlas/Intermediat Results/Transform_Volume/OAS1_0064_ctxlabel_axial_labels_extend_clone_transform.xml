@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MIPAV header file -->
+<image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" nDimensions="3">
+	<Dataset-attributes>
+		<Image-offset>0</Image-offset>
+		<Data-type>Integer</Data-type>
+		<Endianess>Big</Endianess>
+		<Extents>182</Extents>
+		<Extents>218</Extents>
+		<Extents>182</Extents>
+		<Resolutions>
+			<Resolution>1.0</Resolution>
+			<Resolution>1.0</Resolution>
+			<Resolution>1.0</Resolution>
+		</Resolutions>
+		<Slice-spacing>1.0</Slice-spacing>
+		<Slice-thickness>1.0</Slice-thickness>
+		<Units>Millimeters</Units>
+		<Units>Millimeters</Units>
+		<Units>Millimeters</Units>
+		<Compression>none</Compression>
+		<Orientation>Unknown</Orientation>
+		<Subject-axis-orientation>Unknown</Subject-axis-orientation>
+		<Subject-axis-orientation>Unknown</Subject-axis-orientation>
+		<Subject-axis-orientation>Unknown</Subject-axis-orientation>
+		<Origin>0.0</Origin>
+		<Origin>0.0</Origin>
+		<Origin>0.0</Origin>
+		<Matrix>
+			<Transform-ID>Another Dataset</Transform-ID>
+			<Data>0.9278464317321777</Data>
+			<Data>-0.14619284868240356</Data>
+			<Data>-0.25650501251220703</Data>
+			<Data>83.63646697998047</Data>
+			<Data>0.24775852262973785</Data>
+			<Data>0.8769922256469727</Data>
+			<Data>0.3560366928577423</Data>
+			<Data>3.2813754081726074</Data>
+			<Data>0.18698568642139435</Data>
+			<Data>-0.43659916520118713</Data>
+			<Data>0.8010565638542175</Data>
+			<Data>97.40983581542969</Data>
+			<Data>0.0</Data>
+			<Data>0.0</Data>
+			<Data>0.0</Data>
+			<Data>1.0</Data>
+		</Matrix>
+		<Modality>Unknown Modality</Modality>
+	</Dataset-attributes>
+</image>

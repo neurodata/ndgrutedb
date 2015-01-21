@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MIPAV header file -->
+<image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" nDimensions="4">
+	<Dataset-attributes>
+		<Image-offset>0</Image-offset>
+		<Data-type>Float</Data-type>
+		<Endianess>Big</Endianess>
+		<Extents>182</Extents>
+		<Extents>218</Extents>
+		<Extents>182</Extents>
+		<Extents>3</Extents>
+		<Resolutions>
+			<Resolution>1.0</Resolution>
+			<Resolution>1.0</Resolution>
+			<Resolution>1.0</Resolution>
+			<Resolution>1.0</Resolution>
+		</Resolutions>
+		<Slice-spacing>1.0</Slice-spacing>
+		<Slice-thickness>1.0</Slice-thickness>
+		<Units>Millimeters</Units>
+		<Units>Millimeters</Units>
+		<Units>Millimeters</Units>
+		<Units>Unknown</Units>
+		<Compression>none</Compression>
+		<Orientation>Axial</Orientation>
+		<Subject-axis-orientation>Right to Left</Subject-axis-orientation>
+		<Subject-axis-orientation>Anterior to Posterior</Subject-axis-orientation>
+		<Subject-axis-orientation>Inferior to Superior</Subject-axis-orientation>
+		<Origin>-180.51456</Origin>
+		<Origin>107.04189</Origin>
+		<Origin>68.13881</Origin>
+		<Origin>0.0</Origin>
+		<Modality>Unknown Modality</Modality>
+	</Dataset-attributes>
+</image>
