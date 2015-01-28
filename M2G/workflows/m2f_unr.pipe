@@ -14,7 +14,8 @@
                 <metadata>
                         <data key="__creationDateKey" value="Sun Jan 11 21:41:58 EST 2015" />
                 </metadata>
-                <module id="bets_1" name="bets" package="mrimages" posX="523" posY="94" sourceCode="" location="pipeline://localhost//home/gkiar/vbox/loni_scripts/skullextract.py">
+                <module id="bets_1" name="bets" package="mrimages" posX="523" posY="94" sourceCode="" location="pipeline://localhost//cis/project/migraine/centos6/MR-connectome/M2G/src/skullextract.py">
+                        <tag />
                         <metadata>
                                 <data key="__creationDateKey" value="Mon Jan 12 11:59:48 EST 2015" />
                         </metadata>
@@ -53,7 +54,8 @@
                                 </format>
                         </output>
                 </module>
-                <module id="mri2tensors_1" name="mri2tensors" package="mrimages" posX="471" posY="306" sourceCode="" location="pipeline://localhost//home/gkiar/vbox/loni_scripts/dti2tens.py">
+                <module id="mri2tensors_1" name="mri2tensors" package="mrimages" posX="471" posY="306" sourceCode="" location="pipeline://localhost//cis/project/migraine/centos6/MR-connectome/M2G/src/dti2tens.py">
+                        <tag />
                         <metadata>
                                 <data key="__creationDateKey" value="Fri Jan 09 11:38:39 EST 2015" />
                         </metadata>
@@ -130,7 +132,8 @@
                                 </format>
                         </output>
                 </module>
-                <module id="tens2fibers_1" name="tens2fibers" package="mrimages" posX="719" posY="406" sourceCode="" location="pipeline://localhost//home/gkiar/vbox/loni_scripts/tens2fibs.py">
+                <module id="tens2fibers_1" name="tens2fibers" package="mrimages" posX="719" posY="406" sourceCode="" location="pipeline://localhost//cis/project/migraine/centos6/MR-connectome/M2G/src/tens2fibs.py">
+                        <tag />
                         <metadata>
                                 <data key="__creationDateKey" value="Fri Jan 09 13:07:20 EST 2015" />
                         </metadata>
@@ -191,7 +194,7 @@
                                 <filetype name="nifti" extension="nii" description="" />
                         </fileTypes>
                         <values>
-                                <value>pipeline://localhost//cis/project/migraine/data/KKI2009/KKI2009-02/KKI2009-01-DTI.nii</value>
+                                <value>pipeline://localhost//cis/project/migraine/data/KKI2009/KKI2009-01/KKI2009-01-DTI.nii</value>
                                 <value>pipeline://localhost//cis/project/migraine/data/KKI2009/KKI2009-02/KKI2009-02-DTI.nii</value>
                                 <value>pipeline://localhost//cis/project/migraine/data/KKI2009/KKI2009-03/KKI2009-03-DTI.nii</value>
                                 <value>pipeline://localhost//cis/project/migraine/data/KKI2009/KKI2009-04/KKI2009-04-DTI.nii</value>
@@ -236,7 +239,6 @@
                         </values>
                 </dataModule>
                 <dataModule id="Grads_1" name="Grads" package="mrimages" posX="686" posY="173" sourceCode="" type="File" source="true" loopIndex="false">
-                        <tag />
                         <metadata>
                                 <data key="__creationDateKey" value="Thu Jan 15 12:15:02 EST 2015" />
                         </metadata>
@@ -296,7 +298,6 @@
                         </values>
                 </dataModule>
                 <dataModule id="Fibers_1" name="Fibers" package="mrimages" posX="955" posY="526" rotation="1" sourceCode="" type="File" source="false" loopIndex="false" dirDump="false">
-                        <tag />
                         <metadata>
                                 <data key="__creationDateKey" value="Thu Jan 15 13:31:46 EST 2015" />
                         </metadata>
@@ -356,6 +357,7 @@
                         </values>
                 </dataModule>
                 <module id="mappie_1" name="mappie" package="mrimages" posX="815" posY="514" rotation="1" sourceCode="" location="pipeline://localhost//cis/project/migraine/centos6/MR-connectome/M2G/src/apply_transforms.py" gridVariables="-L=2G">
+                        <tag />
                         <metadata>
                                 <data key="__creationDateKey" value="Sun Jan 11 21:38:32 EST 2015" />
                         </metadata>
@@ -380,7 +382,7 @@
                                         </fileTypes>
                                 </format>
                                 <values>
-                                        <value>pipeline://localhost//cis/project/migraine/data/atlas/desikan_atlas.nii</value>
+                                        <value>pipeline://localhost//cis/project/migraine/static.mat</value>
                                 </values>
                         </input>
                 </module>
