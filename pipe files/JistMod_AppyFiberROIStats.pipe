@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <moduleGroup id="Untitled_1" name="Untitled" posX="0" posY="0" sourceCode="">
+                <module id="ApplyFiberROIStats_1" name="Apply Fiber ROI Stats" package="mrconn-jistmod" version="1.0" posX="641" posY="433" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/mipav/jre/bin/java" executableVersion="1.0" envVariables="DISPLAY=localhost:99.0">
+                        <authors>
+                                <author fullName="Zachary Koterba" email="Zachary.Koterba@jhuapl.edu" website="" />
+                        </authors>
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Dec 05 09:06:29 EST 2012" />
+                        </metadata>
+                        <input id="ApplyFiberROIStats_1.-xFile" name="-xFile" required="true" enabled="true" order="6" prefix="-xFile" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="ApplyFiberROIStats_1.edu.jhu.ece.iacl.jist.cli.run" name="edu.jhu.ece.iacl.jist.cli.run" required="true" enabled="true" order="1" prefix="edu.jhu.ece.iacl.jist.cli.run" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>edu.jhu.ece.iacl.plugins.dti.tractography.MedicAlgorithmApplyFiberROIStats</value>
+                                </values>
+                        </input>
+                        <input id="ApplyFiberROIStats_1.-classpath" name="-classpath" required="true" enabled="true" order="0" prefix="-classpath" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>{classP}</value>
+                                </values>
+                        </input>
+                        <input id="ApplyFiberROIStats_1.FiberSet" name="Fiber Set" required="false" enabled="true" order="2" prefix="-inFiber" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="ApplyFiberROIStats_1.-xDir" name="-xDir" required="true" enabled="true" order="5" prefix="-xDir" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <output id="ApplyFiberROIStats_1.-outExecution" name="-outExecution" required="false" enabled="false" order="7">
+                                <format type="String" cardinality="1" />
+                        </output>
+                        <input id="ApplyFiberROIStats_1.ROI" name="ROI" required="false" enabled="true" order="3" prefix="-inROI" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="ApplyFiberROIStats_1.Volume" name="Volume" required="false" enabled="true" order="4" prefix="-inVolume" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Zachary Koterba" email="Zachary.Koterba@jhuapl.edu" website="" />
+                        </executableAuthors>
+                </module>
+                <variables>
+                        <variable name="classP">/mnt/pipelineShare/tools/dolphin/mipav:/mnt/pipelineShare/tools/dolphin/mipav/lib/*:/mnt/pipelineShare/tools/dolphin/mipav/lib/*/*:/mnt/pipelineShare/tools/dolphin/mipav/InsightToolkit/lib/InsightToolkit/InsightToolkit.jar:/mnt/pipelineShare/tools/dolphin/JIST-CRUISE-2012Jan29-11-11PM/library/*:/mnt/pipelineShare/tools/dolphin/JIST-CRUISE-2012Jan29-11-11PM</variable>
+                </variables>
+        </moduleGroup>
+</pipeline>
+

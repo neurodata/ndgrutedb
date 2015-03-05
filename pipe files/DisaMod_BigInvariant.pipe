@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <moduleGroup id="DisaMod_SmallInvariant_1" name="DisaMod_SmallInvariant" posX="0" posY="0" sourceCode="">
+                <input link="BigInvariant_1.fiberMatIn" id="DisaMod_SmallInvariant_1.fiberIn" name="fiberIn" order="0" />
+                <input link="BigInvariant_1.input1" id="DisaMod_SmallInvariant_1.roiXmlIn" name="roiXmlIn" order="1" />
+                <input link="BigInvariant_1.input2" id="DisaMod_SmallInvariant_1.roiRawIn" name="roiRawIn" order="2" />
+                <input link="BigInvariant_1.type" id="DisaMod_SmallInvariant_1.input1" name="input1" order="3" />
+                <module id="BigInvariant_1" name="Big Invariant" package="mrconn-invariant" version="1.0" posX="606" posY="336" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/utilities/MR-connectome/MROCPdjango/computation/composite/inv_exec" executableVersion="1.0">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Apr 15 08:14:20 EDT 2013" />
+                        </metadata>
+                        <input id="BigInvariant_1.fiberMatIn" name="fiberMatIn" required="true" enabled="true" order="0">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="BigInvariant_1.input1" name="input1" required="true" enabled="true" order="1">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="BigInvariant_1.input2" name="input2" required="true" enabled="true" order="2">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="BigInvariant_1.type" name="type" required="true" enabled="true" order="3">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>-S</value>
+                                </values>
+                        </input>
+                        <input id="BigInvariant_1.input3" name="input3" required="true" enabled="true" order="4">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="BigInvariant_1.input4" name="input4" required="true" enabled="true" order="5">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="BigInvariant_1.outputLoc" name="outputLoc" required="true" enabled="true" order="6">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="BigInvariant_1.input5" name="input5" required="true" enabled="true" order="7">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="BigInvariant_1.lccData" name="lccData" required="true" enabled="true" order="8">
+                                <format type="String" cardinality="1" />
+                        </input>
+                </module>
+                <variables>
+                        <variable name="outputDir">/mnt/pipelineShare/pipelineScratch</variable>
+                        <variable name="sourceDir">/mnt/pipelineShare/tools/mrcap/sub1</variable>
+                        <variable name="sub">KKI2009-01</variable>
+                        <variable name="classP">/mnt/pipelineShare/tools/mrconn/mipav:/mnt/pipelineShare/tools/mrconn/mipav/lib/*:/mnt/pipelineShare/tools/mrconn/mipav/lib/*/*:/mnt/pipelineShare/tools/mrconn/mipav/InsightToolkit/lib/InsightToolkit/InsightToolkit.jar:/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM/library/*:/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM</variable>
+                </variables>
+        </moduleGroup>
+</pipeline>
+

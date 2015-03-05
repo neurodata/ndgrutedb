@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="SetupOutputDirectory_1.createdOutputFilePath" sink="PullOutputFileValue_1.outputFilePath" />
+        </connections>
+        <moduleGroup id="TemplateModWrapper_1" name="Template Mod Wrapper" package="mrconn-wrappers" version="1.0" posX="0" posY="0" sourceCode="">
+                <metadata>
+                        <data key="__creationDateKey" value="Fri May 31 18:01:30 EDT 2013" />
+                </metadata>
+                <input link="SetupOutputDirectory_1.rootDir" id="TemplateModWrapper_1.rootDir" name="rootDir" order="0" />
+                <output link="PullOutputFileValue_1.outputValue" id="TemplateModWrapper_1.outputValue" name="outputValue" order="1" />
+                <module id="SetupOutputDirectory_1" name="Setup Output Directory" package="mrconn-util" version="1.0" description="makes a directory in provided root directory and creates a output file name in that directory" posX="468" posY="271" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/utilities/setupOutputDir.py" executableVersion="1.0">
+                        <authors>
+                                <author fullName="Zachary Koterba" email="" website="" />
+                        </authors>
+                        <tag>output</tag>
+                        <tag>mkOutputFile</tag>
+                        <tag>file out</tag>
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Nov 12 15:43:59 EST 2012" />
+                        </metadata>
+                        <input id="SetupOutputDirectory_1.rootDir" name="rootDir" required="true" enabled="true" order="0">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <output id="SetupOutputDirectory_1.createdOutputDirPath" name="createdOutputDirPath" required="true" enabled="true" order="3">
+                                <format type="String" cardinality="1" />
+                                <stringExtract source="stdout" rule="stringMatch" startString="#@@# " endString=" #@@#" caseSensitive="true" />
+                        </output>
+                        <input id="SetupOutputDirectory_1.outputDir" name="outputDir" required="true" enabled="true" order="1">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="SetupOutputDirectory_1.outputFileName" name="outputFileName" required="true" enabled="true" order="2">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <output id="SetupOutputDirectory_1.createdOutputFilePath" name="createdOutputFilePath" required="true" enabled="true" order="4">
+                                <format type="String" cardinality="1" />
+                                <stringExtract source="stdout" rule="stringMatch" startString="#@@@# " endString=" #@@@#" caseSensitive="false" />
+                        </output>
+                        <executableAuthors>
+                                <author fullName="Zachary Koterba" email="" website="" />
+                        </executableAuthors>
+                </module>
+                <module id="PullOutputFileValue_1" name="Pull Output File Value" package="mrconn-util" version="1.0" description="pulls variables from an output file" posX="611" posY="539" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/utilities/pullValueFromFile.py" executableVersion="1.0">
+                        <authors>
+                                <author fullName="Zachary Koterba" email="" website="" />
+                        </authors>
+                        <tag>output</tag>
+                        <tag>file</tag>
+                        <tag>outputFile</tag>
+                        <tag>variable</tag>
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Nov 12 15:43:59 EST 2012" />
+                        </metadata>
+                        <input id="PullOutputFileValue_1.outputFilePath" name="outputFilePath" required="true" enabled="true" order="0">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <output id="PullOutputFileValue_1.outputValue" name="outputValue" required="true" enabled="true" order="2">
+                                <format type="String" cardinality="1" />
+                                <stringExtract source="stdout" rule="stringMatch" startString="#@@# " endString=" #@@#" caseSensitive="true" />
+                        </output>
+                        <input id="PullOutputFileValue_1.variableName" name="variableName" required="true" enabled="true" order="1">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="PullOutputFileValue_1.GOFLAG" name="GO FLAG" required="true" enabled="true" order="3">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Zachary Koterba" email="" website="" />
+                        </executableAuthors>
+                </module>
+        </moduleGroup>
+</pipeline>
+

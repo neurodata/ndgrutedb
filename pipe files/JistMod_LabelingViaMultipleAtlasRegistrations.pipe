@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <moduleGroup id="Untitled_1" name="Untitled" posX="0" posY="0" sourceCode="">
+                <module id="LabelingviaMultipleAtlasRegistrations_1" name="Labeling via Multiple Atlas Registrations" package="mrconn-jistmod" version="1.0" posX="354" posY="492" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/mipav/jre/bin/java" executableVersion="1.0" envVariables="DISPLAY=localhost:99.0">
+                        <authors>
+                                <author fullName="Zachary Koterba" email="Zachary.Koterba@jhuapl.edu" website="" />
+                        </authors>
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Dec 05 09:06:29 EST 2012" />
+                        </metadata>
+                        <input id="LabelingviaMultipleAtlasRegistrations_1.-xFile" name="-xFile" required="true" enabled="true" order="6" prefix="-xFile" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="LabelingviaMultipleAtlasRegistrations_1.edu.jhu.ece.iacl.jist.cli.run" name="edu.jhu.ece.iacl.jist.cli.run" required="true" enabled="true" order="1" prefix="edu.jhu.ece.iacl.jist.cli.run" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>edu.jhu.ece.iacl.plugins.labeling.MedicAlgorithmMultiAtlasLabeling</value>
+                                </values>
+                        </input>
+                        <input id="LabelingviaMultipleAtlasRegistrations_1.-classpath" name="-classpath" required="true" enabled="true" order="0" prefix="-classpath" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>{classP}</value>
+                                </values>
+                        </input>
+                        <input id="LabelingviaMultipleAtlasRegistrations_1.Target" name="Target" required="false" enabled="true" order="2" prefix="-inTarget" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="LabelingviaMultipleAtlasRegistrations_1.-xDir" name="-xDir" required="true" enabled="true" order="5" prefix="-xDir" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <output id="LabelingviaMultipleAtlasRegistrations_1.-outExecution" name="-outExecution" required="false" enabled="true" order="7">
+                                <format type="String" cardinality="1" />
+                        </output>
+                        <input id="LabelingviaMultipleAtlasRegistrations_1.Atlases" name="Atlases" required="false" enabled="true" order="3" prefix="-inAtlases" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>"/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM/Atlas/oasis_labels/OAS1_0001_brainmask_axial.xml;/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM/Atlas/oasis_labels/OAS1_0062_brainmask_axial.xml;/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM/Atlas/oasis_labels/OAS1_0064_brainmask_axial.xml;/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM/Atlas/oasis_labels/OAS1_0130_brainmask_axial.xml</value>
+                                </values>
+                        </input>
+                        <input id="LabelingviaMultipleAtlasRegistrations_1.AtlasesLabels" name="Atlases Labels" required="false" enabled="true" order="4" prefix="-inAtlases2" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM/Atlas/oasis_labels/OAS1_0001_ctxlabel_axial_labels_extend.xml;/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM/Atlas/oasis_labels/OAS1_0062_ctxlabel_axial_labels_extend.xml;/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM/Atlas/oasis_labels/OAS1_0064_ctxlabel_axial_labels_extend.xml;/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM/Atlas/oasis_labels/OAS1_0130_ctxlabel_axial_labels_extend.xml</value>
+                                </values>
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Zachary Koterba" email="Zachary.Koterba@jhuapl.edu" website="" />
+                        </executableAuthors>
+                </module>
+        </moduleGroup>
+</pipeline>
+

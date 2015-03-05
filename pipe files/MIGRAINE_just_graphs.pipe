@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="data_1.Output" sink="BigGraphPipe_1.fiberIn" />
+                <connection source="MNILabeledBrain_1.Output" sink="BigGraphPipe_1.roiXmlIn" />
+                <connection source="RawMNILabeledBrain_1.Output" sink="BigGraphPipe_1.roiRawIn" />
+                <connection source="sub_dirs_1.Output" sink="BigGraphPipe_1.rootDir" />
+                <connection source="SetupOutputDirectory_1.createdOutputDirPath" sink="BigGraph2_1.outputDir" />
+                <connection source="data_1.Output" sink="SmallGraphPipe_1.fiberIn" />
+                <connection source="MNILabeledBrain_1.Output" sink="SmallGraphPipe_1.roiXmlIn" />
+                <connection source="RawMNILabeledBrain_1.Output" sink="SmallGraphPipe_1.roiRawIn" />
+                <connection source="sub_dirs_1.Output" sink="SmallGraphPipe_1.rootDir" />
+                <connection source="SetupOutputDirectory_2.createdOutputDirPath" sink="SmallGraph_1.outputDir" />
+                <connection source="BigGraphPipe_1.output" sink="BigInvariantPipe_1.fiberMatIn" />
+                <connection source="sub_dirs_1.Output" sink="BigInvariantPipe_1.rootDir" />
+                <connection source="SetupOutputDirectory_3.createdOutputDirPath" sink="BigInvariant2_1.outputLoc" />
+                <connection source="SmallGraphPipe_1.output" sink="SmallInvariantPipe_1.fiberMatIn" />
+                <connection source="sub_dirs_1.Output" sink="SmallInvariantPipe_1.rootDir" />
+                <connection source="SetupOutputDirectory_4.createdOutputDirPath" sink="SmallInvariant2_1.outputLoc" />
+        </connections>
+        <moduleGroup id="MIGRAINE_just_graphs_1" name="MIGRAINE_just_graphs" package="mrconn-legs" posX="0" posY="0" sourceCode="" recordsWorkflow="true">
+                <tag />
+                <metadata>
+                        <data key="__creationDateKey" value="Thu Jun 12 11:44:38 EDT 2014" />
+                </metadata>
+                <moduleGroup id="BigGraphPipe_1" name="Big Graph Pipe" package="mrconn-piping" version="1.0" posX="50" posY="363" sourceCode="">
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Apr 19 15:35:10 EDT 2013" />
+                        </metadata>
+                        <input link="BigGraph2_1.fiberIn" id="BigGraphPipe_1.fiberIn" name="fiberIn" order="0" />
+                        <input link="BigGraph2_1.roiXmlIn" id="BigGraphPipe_1.roiXmlIn" name="roiXmlIn" order="1" />
+                        <input link="BigGraph2_1.roiRawIn" id="BigGraphPipe_1.roiRawIn" name="roiRawIn" order="2" />
+                        <input link="BigGraph2_1.outputFile" id="BigGraphPipe_1.outputFile" name="outputFile" order="4" />
+                        <input link="BigGraph2_1.input2" id="BigGraphPipe_1.input2" name="input2" order="5" />
+                        <input link="BigGraph2_1.input3" id="BigGraphPipe_1.input3" name="input3" order="6" />
+                        <input link="SetupOutputDirectory_1.outputDir" id="BigGraphPipe_1.outputDir" name="outputDir" order="7" />
+                        <input link="SetupOutputDirectory_1.rootDir" id="BigGraphPipe_1.rootDir" name="rootDir" order="8" />
+                        <output link="BigGraph2_1.output" id="BigGraphPipe_1.output" name="output" order="9" />
+                        <input link="BigGraph2_1.input4" id="BigGraphPipe_1.input4" name="input4" order="10" />
+                        <input link="BigGraph2_1.atlases" id="BigGraphPipe_1.atlases" name="atlases" order="11" />
+                        <input link="BigGraph2_1.atlases1" id="BigGraphPipe_1.atlases1" name="atlases (1)" order="11" />
+                        <input link="BigGraph2_1.atlases2" id="BigGraphPipe_1.atlases2" name="atlases (2)" order="12" />
+                        <module id="BigGraph2_1" name="Big Graph 2" package="mrconn-graph" version="1.0.2" posX="159" posY="301" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//usr/local/mrocp/MR-connectome/MROCPdjango/computation/composite/graph_exec" executableVersion="1.0" envVariables="LD_LIBRARY_PATH=/usr/local/lib">
+                                <metadata>
+                                        <data key="__creationDateKey" value="Mon Apr 15 08:14:20 EDT 2013" />
+                                </metadata>
+                                <input id="BigGraph2_1.fiberIn" name="fiberIn" required="true" enabled="true" order="0">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <input id="BigGraph2_1.roiXmlIn" name="roiXmlIn" required="true" enabled="true" order="1">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <input id="BigGraph2_1.roiRawIn" name="roiRawIn" required="true" enabled="true" order="2">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <input id="BigGraph2_1.outputDir" name="outputDir" required="true" enabled="true" order="3" prefix="-S" prefixSpaced="true" prefixAllArgs="false">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <input id="BigGraph2_1.input2" name="input2" required="false" enabled="true" order="4">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>-b</value>
+                                        </values>
+                                </input>
+                                <input id="BigGraph2_1.input3" name="input3" required="false" enabled="true" order="5">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>-g</value>
+                                        </values>
+                                </input>
+                                <input id="BigGraph2_1.outputFile" name="outputFile" required="false" enabled="true" order="6">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>biggraph.mat</value>
+                                        </values>
+                                </input>
+                                <output id="BigGraph2_1.output" name="output" required="false" enabled="true" order="11">
+                                        <format type="String" cardinality="1" />
+                                        <stringExtract source="stdout" rule="stringMatch" startString="Saving graph '" endString="' to disk" caseSensitive="false" />
+                                </output>
+                                <input id="BigGraph2_1.input4" name="input4" required="false" enabled="true" order="7">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>-a</value>
+                                        </values>
+                                </input>
+                                <input id="BigGraph2_1.atlases" name="atlases" required="false" enabled="true" order="8">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>/usr/local/mrocp/MR-connectome/mrcap/utils/desikan_atlas.nii,/usr/local/mrocp/MR-connectome/mrcap/utils/desikan_atlas.txt</value>
+                                        </values>
+                                </input>
+                                <input id="BigGraph2_1.atlases1" name="atlases (1)" required="false" enabled="true" order="9">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>/usr/local/mrocp/MR-connectome/mrcap/utils/slab_atlas.nii</value>
+                                        </values>
+                                </input>
+                                <input id="BigGraph2_1.atlases2" name="atlases (2)" required="false" enabled="true" order="10">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>/usr/local/mrocp/MR-connectome/mrcap/utils/20k_atlas.nii</value>
+                                        </values>
+                                </input>
+                        </module>
+                        <module id="SetupOutputDirectory_1" name="Setup Output Directory" package="mrconn-util" version="1.0" description="makes a directory in provided root directory and creates a output file name in that directory" posX="295" posY="117" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/utilities/setupOutputDir.py" executableVersion="1.0">
+                                <authors>
+                                        <author fullName="Zachary Koterba" email="" website="" />
+                                </authors>
+                                <tag>output</tag>
+                                <tag>mkOutputFile</tag>
+                                <tag>file out</tag>
+                                <metadata>
+                                        <data key="__creationDateKey" value="Mon Nov 12 15:43:59 EST 2012" />
+                                </metadata>
+                                <input id="SetupOutputDirectory_1.rootDir" name="rootDir" required="true" enabled="true" order="0">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <output id="SetupOutputDirectory_1.createdOutputDirPath" name="createdOutputDirPath" required="true" enabled="true" order="3">
+                                        <format type="String" cardinality="1" />
+                                        <stringExtract source="stdout" rule="stringMatch" startString="#@@# " endString=" #@@#" caseSensitive="true" />
+                                </output>
+                                <input id="SetupOutputDirectory_1.outputDir" name="outputDir" required="true" enabled="true" order="1">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>biggraph</value>
+                                        </values>
+                                </input>
+                                <input id="SetupOutputDirectory_1.outputFileName" name="outputFileName" required="true" enabled="true" order="2">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>default.txt</value>
+                                        </values>
+                                </input>
+                                <output id="SetupOutputDirectory_1.createdOutputFilePath" name="createdOutputFilePath" required="true" enabled="true" order="4">
+                                        <format type="String" cardinality="1" />
+                                        <stringExtract source="stdout" rule="stringMatch" startString="#@@@# " endString=" #@@@#" caseSensitive="false" />
+                                </output>
+                                <executableAuthors>
+                                        <author fullName="Zachary Koterba" email="" website="" />
+                                </executableAuthors>
+                        </module>
+                </moduleGroup>
+                <moduleGroup id="SmallGraphPipe_1" name="Small Graph Pipe" package="mrconn-piping" version="1.0" posX="495" posY="373" sourceCode="">
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Apr 19 15:35:10 EDT 2013" />
+                        </metadata>
+                        <input link="SmallGraph_1.fiberIn" id="SmallGraphPipe_1.fiberIn" name="fiberIn" order="0" />
+                        <input link="SmallGraph_1.roiXmlIn" id="SmallGraphPipe_1.roiXmlIn" name="roiXmlIn" order="1" />
+                        <input link="SmallGraph_1.roiRawIn" id="SmallGraphPipe_1.roiRawIn" name="roiRawIn" order="2" />
+                        <input link="SmallGraph_1.input1" id="SmallGraphPipe_1.input1" name="input1" order="3" />
+                        <input link="SetupOutputDirectory_2.outputDir" id="SmallGraphPipe_1.outputDir" name="outputDir" order="4" />
+                        <input link="SetupOutputDirectory_2.rootDir" id="SmallGraphPipe_1.rootDir" name="rootDir" order="5" />
+                        <output link="SmallGraph_1.output" id="SmallGraphPipe_1.output" name="output" order="6" />
+                        <input link="SmallGraph_1.input2" id="SmallGraphPipe_1.input2" name="input2" order="7" />
+                        <input link="SmallGraph_1.outputName" id="SmallGraphPipe_1.outputName" name="outputName" order="8" />
+                        <input link="SmallGraph_1.input3" id="SmallGraphPipe_1.input3" name="input3" order="9" />
+                        <input link="SmallGraph_1.atlases" id="SmallGraphPipe_1.atlases" name="atlases" order="10" />
+                        <module id="SmallGraph_1" name="Small Graph" package="mrconn-graph" version="1.0" posX="166" posY="300" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//usr/local/mrocp/MR-connectome/MROCPdjango/computation/composite/graph_exec" executableVersion="1.0" envVariables="LD_LIBRARY_PATH=/usr/local/lib">
+                                <metadata>
+                                        <data key="__creationDateKey" value="Mon Apr 15 08:14:20 EDT 2013" />
+                                </metadata>
+                                <input id="SmallGraph_1.fiberIn" name="fiberIn" required="true" enabled="true" order="0">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <input id="SmallGraph_1.roiXmlIn" name="roiXmlIn" required="true" enabled="true" order="1">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <input id="SmallGraph_1.roiRawIn" name="roiRawIn" required="true" enabled="true" order="2">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <input id="SmallGraph_1.input1" name="input1" required="true" enabled="true" order="3">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>-S</value>
+                                        </values>
+                                </input>
+                                <input id="SmallGraph_1.outputDir" name="outputDir" required="true" enabled="true" order="4">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <output id="SmallGraph_1.output" name="output" required="false" enabled="true" order="9">
+                                        <format type="String" cardinality="1" />
+                                        <stringExtract source="stdout" rule="stringMatch" startString="Saving graph '" endString="' to disk" caseSensitive="false" />
+                                </output>
+                                <input id="SmallGraph_1.input3" name="input3" required="false" enabled="true" order="7">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>-a</value>
+                                        </values>
+                                </input>
+                                <input id="SmallGraph_1.atlases" name="atlases" required="false" enabled="true" order="8">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>/usr/local/mrocp/MR-connectome/mrcap/utils/desikan_atlas.nii,/usr/local/mrocp/MR-connectome/mrcap/utils/desikan_atlas.txt</value>
+                                        </values>
+                                </input>
+                                <input id="SmallGraph_1.input2" name="input2" required="false" enabled="true" order="5">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>-g</value>
+                                        </values>
+                                </input>
+                                <input id="SmallGraph_1.outputName" name="outputName" required="false" enabled="true" order="6">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>smallgraph.mat</value>
+                                        </values>
+                                </input>
+                        </module>
+                        <module id="SetupOutputDirectory_2" name="Setup Output Directory" package="mrconn-util" version="1.0" description="makes a directory in provided root directory and creates a output file name in that directory" posX="272" posY="143" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/utilities/setupOutputDir.py" executableVersion="1.0">
+                                <authors>
+                                        <author fullName="Zachary Koterba" email="" website="" />
+                                </authors>
+                                <tag>output</tag>
+                                <tag>mkOutputFile</tag>
+                                <tag>file out</tag>
+                                <metadata>
+                                        <data key="__creationDateKey" value="Mon Nov 12 15:43:59 EST 2012" />
+                                </metadata>
+                                <input id="SetupOutputDirectory_2.rootDir" name="rootDir" required="true" enabled="true" order="0">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <output id="SetupOutputDirectory_2.createdOutputDirPath" name="createdOutputDirPath" required="true" enabled="true" order="3">
+                                        <format type="String" cardinality="1" />
+                                        <stringExtract source="stdout" rule="stringMatch" startString="#@@# " endString=" #@@#" caseSensitive="true" />
+                                </output>
+                                <input id="SetupOutputDirectory_2.outputDir" name="outputDir" required="true" enabled="true" order="1">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>smallgraph</value>
+                                        </values>
+                                </input>
+                                <input id="SetupOutputDirectory_2.outputFileName" name="outputFileName" required="true" enabled="true" order="2">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>default.txt</value>
+                                        </values>
+                                </input>
+                                <output id="SetupOutputDirectory_2.createdOutputFilePath" name="createdOutputFilePath" required="true" enabled="true" order="4">
+                                        <format type="String" cardinality="1" />
+                                        <stringExtract source="stdout" rule="stringMatch" startString="#@@@# " endString=" #@@@#" caseSensitive="false" />
+                                </output>
+                                <executableAuthors>
+                                        <author fullName="Zachary Koterba" email="" website="" />
+                                </executableAuthors>
+                        </module>
+                </moduleGroup>
+                <moduleGroup id="BigInvariantPipe_1" name="Big Invariant Pipe" package="mrconn-piping" version="1.0" posX="361" posY="544" sourceCode="">
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Apr 19 15:35:10 EDT 2013" />
+                        </metadata>
+                        <input link="BigInvariant2_1.fiberMatIn" id="BigInvariantPipe_1.fiberMatIn" name="fiberMatIn" order="0" />
+                        <input link="BigInvariant2_1.input1" id="BigInvariantPipe_1.input1" name="input1" order="1" />
+                        <input link="BigInvariant2_1.input2" id="BigInvariantPipe_1.input2" name="input2" order="2" />
+                        <input link="SetupOutputDirectory_3.outputDir" id="BigInvariantPipe_1.outputDir" name="outputDir" order="3" />
+                        <input link="SetupOutputDirectory_3.rootDir" id="BigInvariantPipe_1.rootDir" name="rootDir" order="4" />
+                        <module id="SetupOutputDirectory_3" name="Setup Output Directory" package="mrconn-util" version="1.0" description="makes a directory in provided root directory and creates a output file name in that directory" posX="397" posY="99" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/utilities/setupOutputDir.py" executableVersion="1.0">
+                                <authors>
+                                        <author fullName="Zachary Koterba" email="" website="" />
+                                </authors>
+                                <tag>output</tag>
+                                <tag>mkOutputFile</tag>
+                                <tag>file out</tag>
+                                <metadata>
+                                        <data key="__creationDateKey" value="Mon Nov 12 15:43:59 EST 2012" />
+                                </metadata>
+                                <input id="SetupOutputDirectory_3.rootDir" name="rootDir" required="true" enabled="true" order="0">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <output id="SetupOutputDirectory_3.createdOutputDirPath" name="createdOutputDirPath" required="true" enabled="true" order="3">
+                                        <format type="String" cardinality="1" />
+                                        <stringExtract source="stdout" rule="stringMatch" startString="#@@# " endString=" #@@#" caseSensitive="true" />
+                                </output>
+                                <input id="SetupOutputDirectory_3.outputDir" name="outputDir" required="true" enabled="true" order="1">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>biginvariant</value>
+                                        </values>
+                                </input>
+                                <input id="SetupOutputDirectory_3.outputFileName" name="outputFileName" required="true" enabled="true" order="2">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>default.txt</value>
+                                        </values>
+                                </input>
+                                <output id="SetupOutputDirectory_3.createdOutputFilePath" name="createdOutputFilePath" required="true" enabled="true" order="4">
+                                        <format type="String" cardinality="1" />
+                                        <stringExtract source="stdout" rule="stringMatch" startString="#@@@# " endString=" #@@@#" caseSensitive="false" />
+                                </output>
+                                <executableAuthors>
+                                        <author fullName="Zachary Koterba" email="" website="" />
+                                </executableAuthors>
+                        </module>
+                        <module id="BigInvariant2_1" name="Big Invariant 2" package="mrconn-invariant" version="1.0" posX="278" posY="300" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//usr/local/mrocp/MR-connectome/MROCPdjango/computation/composite/inv_exec" executableVersion="1.0" envVariables="LD_LIBRARY_PATH=/usr/local/lib">
+                                <metadata>
+                                        <data key="__creationDateKey" value="Mon Apr 15 08:14:20 EDT 2013" />
+                                </metadata>
+                                <input id="BigInvariant2_1.fiberMatIn" name="fiberMatIn" required="true" enabled="true" order="0">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <input id="BigInvariant2_1.input1" name="input1" required="true" enabled="true" order="1">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>-A</value>
+                                        </values>
+                                </input>
+                                <input id="BigInvariant2_1.input2" name="input2" required="true" enabled="true" order="2">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>-S</value>
+                                        </values>
+                                </input>
+                                <input id="BigInvariant2_1.outputLoc" name="outputLoc" required="true" enabled="true" order="3">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                        </module>
+                </moduleGroup>
+                <moduleGroup id="SmallInvariantPipe_1" name="Small Invariant Pipe" package="mrconn-piping" version="1.0" posX="810" posY="528" sourceCode="">
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri Apr 19 15:35:10 EDT 2013" />
+                        </metadata>
+                        <input link="SmallInvariant2_1.fiberMatIn" id="SmallInvariantPipe_1.fiberMatIn" name="fiberMatIn" order="0" />
+                        <input link="SmallInvariant2_1.input1" id="SmallInvariantPipe_1.input1" name="input1" order="1" />
+                        <input link="SmallInvariant2_1.input2" id="SmallInvariantPipe_1.input2" name="input2" order="2" />
+                        <input link="SetupOutputDirectory_4.outputDir" id="SmallInvariantPipe_1.outputDir" name="outputDir" order="6" />
+                        <input link="SetupOutputDirectory_4.rootDir" id="SmallInvariantPipe_1.rootDir" name="rootDir" order="7" />
+                        <module id="SetupOutputDirectory_4" name="Setup Output Directory" package="mrconn-util" version="1.0" description="makes a directory in provided root directory and creates a output file name in that directory" posX="397" posY="99" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/utilities/setupOutputDir.py" executableVersion="1.0">
+                                <authors>
+                                        <author fullName="Zachary Koterba" email="" website="" />
+                                </authors>
+                                <tag>output</tag>
+                                <tag>mkOutputFile</tag>
+                                <tag>file out</tag>
+                                <metadata>
+                                        <data key="__creationDateKey" value="Mon Nov 12 15:43:59 EST 2012" />
+                                </metadata>
+                                <input id="SetupOutputDirectory_4.rootDir" name="rootDir" required="true" enabled="true" order="0">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <output id="SetupOutputDirectory_4.createdOutputDirPath" name="createdOutputDirPath" required="true" enabled="true" order="3">
+                                        <format type="String" cardinality="1" />
+                                        <stringExtract source="stdout" rule="stringMatch" startString="#@@# " endString=" #@@#" caseSensitive="true" />
+                                </output>
+                                <input id="SetupOutputDirectory_4.outputDir" name="outputDir" required="true" enabled="true" order="1">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>smallinvariant</value>
+                                        </values>
+                                </input>
+                                <input id="SetupOutputDirectory_4.outputFileName" name="outputFileName" required="true" enabled="true" order="2">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>default.txt</value>
+                                        </values>
+                                </input>
+                                <output id="SetupOutputDirectory_4.createdOutputFilePath" name="createdOutputFilePath" required="true" enabled="true" order="4">
+                                        <format type="String" cardinality="1" />
+                                        <stringExtract source="stdout" rule="stringMatch" startString="#@@@# " endString=" #@@@#" caseSensitive="false" />
+                                </output>
+                                <executableAuthors>
+                                        <author fullName="Zachary Koterba" email="" website="" />
+                                </executableAuthors>
+                        </module>
+                        <module id="SmallInvariant2_1" name="Small Invariant 2" package="mrconn-invariant" version="1.0" posX="242" posY="323" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//usr/local/mrocp/MR-connectome/MROCPdjango/computation/composite/inv_exec" executableVersion="1.0" envVariables="LD_LIBRARY_PATH=/usr/local/lib">
+                                <metadata>
+                                        <data key="__creationDateKey" value="Mon Apr 15 08:14:20 EDT 2013" />
+                                </metadata>
+                                <input id="SmallInvariant2_1.fiberMatIn" name="fiberMatIn" required="true" enabled="true" order="0">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                                <input id="SmallInvariant2_1.input1" name="input1" required="true" enabled="true" order="1">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>-A</value>
+                                        </values>
+                                </input>
+                                <input id="SmallInvariant2_1.input2" name="input2" required="true" enabled="true" order="2">
+                                        <format type="String" cardinality="1" />
+                                        <values>
+                                                <value>-S</value>
+                                        </values>
+                                </input>
+                                <input id="SmallInvariant2_1.outputLoc" name="outputLoc" required="true" enabled="true" order="3">
+                                        <format type="String" cardinality="1" />
+                                </input>
+                        </module>
+                </moduleGroup>
+                <dataModule id="MNILabeledBrain_1" name="MNI Labeled Brain" description="This is precomputed to avoid repeating identical atlas registration step each time." posX="103" posY="17" sourceCode="" type="String" source="true" loopIndex="false">
+                        <authors>
+                                <author fullName="" email="willgray@jhu.edu" website="" />
+                        </authors>
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Apr 15 10:13:44 EDT 2013" />
+                        </metadata>
+                        <output id="MNILabeledBrain_1.Output" name="Output" description="This is precomputed to avoid repeating identical atlas registration step each time." required="true" enabled="true" order="-1">
+                                <format type="String" cardinality="1" />
+                        </output>
+                        <values>
+                                <value>/mnt/pipelineShare/tools/mrconn/atlas/multiatlas/MNI152_T1_1mm_brain_labels.xml</value>
+                        </values>
+                </dataModule>
+                <dataModule id="RawMNILabeledBrain_1" name="Raw MNI Labeled Brain" description="This is precomputed to avoid repeating identical atlas registration step each time." posX="225" posY="67" sourceCode="" type="String" source="true" loopIndex="false">
+                        <authors>
+                                <author fullName="" email="willgray@jhu.edu" website="" />
+                        </authors>
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Apr 15 10:13:44 EDT 2013" />
+                        </metadata>
+                        <output id="RawMNILabeledBrain_1.Output" name="Output" description="This is precomputed to avoid repeating identical atlas registration step each time." required="true" enabled="true" order="-1">
+                                <format type="String" cardinality="1" />
+                        </output>
+                        <values>
+                                <value>/mnt/pipelineShare/tools/mrconn/atlas/multiatlas/MNI152_T1_1mm_brain_labels.raw</value>
+                        </values>
+                </dataModule>
+                <dataModule id="sub_dirs_1" name="sub_dirs" posX="569" posY="37" sourceCode="" type="String" source="true" loopIndex="false">
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon May 12 08:33:47 EDT 2014" />
+                        </metadata>
+                        <output id="sub_dirs_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="String" cardinality="1" />
+                        </output>
+                        <values>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-01</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-02</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-03</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-04</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-05</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-06</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-07</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-08</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-09</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-10</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-11</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-12</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-13</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-14</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-15</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-16</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-17</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-18</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-19</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-20</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-21</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-22</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-23</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-24</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-25</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-26</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-27</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-28</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-29</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-30</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-31</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-32</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-33</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-34</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-35</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-36</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-37</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-38</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-39</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-40</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-41</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-42</value>
+                        </values>
+                </dataModule>
+                <dataModule id="data_1" name="data" posX="429" posY="0" sourceCode="" type="String" source="true" loopIndex="false">
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon May 12 08:33:47 EDT 2014" />
+                        </metadata>
+                        <output id="data_1.Output" name="Output" required="true" enabled="true" order="-1">
+                                <format type="String" cardinality="1" />
+                        </output>
+                        <values>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-01/fibertracker/KKI2009-01-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-02/fibertracker/KKI2009-02-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-03/fibertracker/KKI2009-03-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-04/fibertracker/KKI2009-04-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-05/fibertracker/KKI2009-05-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-06/fibertracker/KKI2009-06-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-07/fibertracker/KKI2009-07-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-08/fibertracker/KKI2009-08-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-09/fibertracker/KKI2009-09-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-10/fibertracker/KKI2009-10-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-11/fibertracker/KKI2009-11-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-12/fibertracker/KKI2009-12-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-13/fibertracker/KKI2009-13-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-14/fibertracker/KKI2009-14-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-15/fibertracker/KKI2009-15-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-16/fibertracker/KKI2009-16-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-17/fibertracker/KKI2009-17-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-18/fibertracker/KKI2009-18-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-19/fibertracker/KKI2009-19-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-20/fibertracker/KKI2009-20-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-21/fibertracker/KKI2009-21-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-22/fibertracker/KKI2009-22-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-23/fibertracker/KKI2009-23-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-24/fibertracker/KKI2009-24-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-25/fibertracker/KKI2009-25-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-26/fibertracker/KKI2009-26-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-27/fibertracker/KKI2009-27-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-28/fibertracker/KKI2009-28-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-29/fibertracker/KKI2009-29-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-30/fibertracker/KKI2009-30-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-31/fibertracker/KKI2009-31-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-32/fibertracker/KKI2009-32-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-33/fibertracker/KKI2009-33-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-34/fibertracker/KKI2009-34-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-35/fibertracker/KKI2009-35-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-36/fibertracker/KKI2009-36-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-37/fibertracker/KKI2009-37-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-38/fibertracker/KKI2009-38-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-39/fibertracker/KKI2009-39-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-40/fibertracker/KKI2009-40-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-41/fibertracker/KKI2009-41-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                                <value>/mnt/neuroShare/MRCONNECTOME/output/kk121/results20140511T232747/KKI2009-42/fibertracker/KKI2009-42-DTI_Volume00_reg_clone_transform_clone_transform_TensorLLMSE_4D_FA_fbr.dat</value>
+                        </values>
+                </dataModule>
+                <variables>
+                        <variable name="classP">/usr/local/mipav:/usr/local/mipav/lib/*:/usr/local/mipav/lib/*/*:/usr/local/mipav/InsightToolkit/lib/InsightToolkit/InsightToolkit.jar:/usr/local/JIST/library/*:/usr/local/JIST</variable>
+                </variables>
+        </moduleGroup>
+</pipeline>
+

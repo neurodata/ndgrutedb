@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <moduleGroup id="Invariant2_1" name="Invariant2" package="mrconn-invariant" version="1.2" posX="0" posY="0" sourceCode="">
+                <tag />
+                <metadata>
+                        <data key="__creationDateKey" value="Thu Jun 12 11:43:53 EDT 2014" />
+                </metadata>
+                <module id="Invariant2_2" name="Invariant 2" package="mrconn-graph" version="1.2" posX="266" posY="227" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//usr/local/mrocp/MR-connectome/MROCPdjango/computation/composite/inv_exec" executableVersion="1.0" envVariables="LD_LIBRARY_PATH=/usr/local/lib">
+                        <metadata>
+                                <data key="__creationDateKey" value="Mon Apr 15 08:14:20 EDT 2013" />
+                        </metadata>
+                        <input id="Invariant2_2.fiberMatIn" name="fiberMatIn" required="true" enabled="true" order="0">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Invariant2_2.input1" name="input1" required="true" enabled="true" order="1">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>-A</value>
+                                </values>
+                        </input>
+                        <input id="Invariant2_2.input2" name="input2" required="true" enabled="true" order="2">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>-S</value>
+                                </values>
+                        </input>
+                        <input id="Invariant2_2.outputLoc" name="outputLoc" required="true" enabled="true" order="3">
+                                <format type="String" cardinality="1" />
+                        </input>
+                </module>
+                <variables>
+                        <variable name="classP">/usr/local/mipav:/usr/local/mipav/lib/*:/usr/local/mipav/lib/*/*:/usr/local/mipav/InsightToolkit/lib/InsightToolkit/InsightToolkit.jar:/usr/local/JIST/library/*:/usr/local/JIST</variable>
+                </variables>
+        </moduleGroup>
+</pipeline>
+

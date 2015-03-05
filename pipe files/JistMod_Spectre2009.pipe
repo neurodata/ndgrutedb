@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <moduleGroup id="JistMod_Spectre2009_1" name="JistMod_Spectre2009" posX="0" posY="0" sourceCode="">
+                <module id="Spectre2009_1" name="Spectre 2009" package="mrconn-jistmod" version="1.0" posX="396" posY="415" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/mipav/jre/bin/java" executableVersion="1.0" envVariables="DISPLAY=localhost:99.0">
+                        <authors>
+                                <author fullName="Zachary Koterba" email="Zachary.Koterba@jhuapl.edu" website="" />
+                        </authors>
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Dec 05 09:18:57 EST 2012" />
+                        </metadata>
+                        <input id="Spectre2009_1.inApply" name="inApply" required="false" enabled="false" order="3">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.-inAtlas" name="-inAtlas" required="true" enabled="true" order="2" prefix="-inAtlas" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>/mnt/pipelineShare/tools/mrconn/JIST-CRUISE-2012Jan29-11-11PM/Atlas/spectre/oasis-3.txt</value>
+                                </values>
+                        </input>
+                        <input id="Spectre2009_1.inBackground" name="inBackground" required="false" enabled="false" order="4">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inCoarse" name="inCoarse" required="false" enabled="false" order="5">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inCost" name="inCost" required="false" enabled="false" order="18">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inDegrees" name="inDegrees" required="false" enabled="false" order="6">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inFine" name="inFine" required="false" enabled="false" order="7">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inImage" name="inImage" required="false" enabled="false" order="8">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inInhomegeneity" name="inInhomegeneity" required="false" enabled="false" order="9">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inInitial" name="inInitial" required="false" enabled="false" order="10">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inInitial2" name="inInitial2" required="false" enabled="false" order="11">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inMaximum" name="inMaximum" required="false" enabled="false" order="12">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inMinimum" name="inMinimum" required="false" enabled="false" order="13">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inMinimum2" name="inMinimum2" required="false" enabled="false" order="14">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inMMC" name="inMMC" required="false" enabled="false" order="15">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inMultiple" name="inMultiple" required="false" enabled="false" order="17">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inMultithreading" name="inMultithreading" required="false" enabled="false" order="20">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inNumber" name="inNumber" required="false" enabled="false" order="19">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inNumber2" name="inNumber2" required="false" enabled="false" order="21">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inOutput" name="inOutput" required="false" enabled="false" order="22">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inRegistration" name="inRegistration" required="false" enabled="false" order="23">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inResample" name="inResample" required="false" enabled="false" order="24">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inSkip" name="inSkip" required="false" enabled="false" order="25">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inSmoothing" name="inSmoothing" required="false" enabled="false" order="26">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inSubsample" name="inSubsample" required="false" enabled="false" order="27">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inUse" name="inUse" required="false" enabled="false" order="28">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.-inVolume" name="-inVolume" required="true" enabled="true" order="29" prefix="-inVolume" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <output id="Spectre2009_1.outd0" name="outd0" required="false" enabled="false" order="30">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <output id="Spectre2009_1.outExecution" name="outExecution" required="false" enabled="true" order="31">
+                                <format type="String" cardinality="1" />
+                        </output>
+                        <output id="Spectre2009_1.outFANTASM" name="outFANTASM" required="false" enabled="false" order="32">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <output id="Spectre2009_1.outMask" name="outMask" required="false" enabled="false" order="33">
+                                <format type="String" cardinality="1" />
+                        </output>
+                        <output id="Spectre2009_1.outPrior" name="outPrior" required="false" enabled="false" order="34">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <output id="Spectre2009_1.outReoriented" name="outReoriented" required="false" enabled="false" order="35">
+                                <format type="String" cardinality="1" />
+                        </output>
+                        <output id="Spectre2009_1.outStripped" name="outStripped" required="false" enabled="false" order="36">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="Spectre2009_1.-xDir" name="-xDir" required="false" enabled="true" order="37" prefix="-xDir" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.-xFile" name="-xFile" required="false" enabled="true" order="38" prefix="-xFile" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.inMMC2" name="inMMC2" required="false" enabled="false" order="16">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <input id="Spectre2009_1.-classpath" name="-classpath" required="true" enabled="true" order="0" prefix="-classpath" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>{classP}</value>
+                                </values>
+                        </input>
+                        <input id="Spectre2009_1.edu.jhu.ece.iacl.jist.cli.run" name="edu.jhu.ece.iacl.jist.cli.run" required="false" enabled="true" order="1" prefix="edu.jhu.ece.iacl.jist.cli.run" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>edu.jhu.ece.iacl.plugins.segmentation.skull_strip.MedicAlgorithmSPECTRE2009</value>
+                                </values>
+                        </input>
+                        <executableAuthors>
+                                <author fullName="Zachary Koterba" email="Zachary.Koterba@jhuapl.edu" website="" />
+                        </executableAuthors>
+                </module>
+        </moduleGroup>
+</pipeline>
+

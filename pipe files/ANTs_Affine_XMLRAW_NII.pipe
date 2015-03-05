@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <connections>
+                <connection source="ANTsRegistrationAffine_1.AffineTransform" sink="ConvertMATtoNII_1.ImageXMLFile" />
+                <connection source="ConvertXMLRAWtoNII_1.OutputNii" sink="ANTsRegistrationAffine_1.FixedImage" />
+                <connection source="ConvertXMLRAWtoNII_2.OutputNii" sink="ANTsRegistrationAffine_1.MovingImage" />
+        </connections>
+        <icons>
+                <icon id="0" value="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&#xA;/e8q2v8B3iAaijOcR5MAAAAASUVORK5CYII=" />
+        </icons>
+        <moduleGroup id="ANTsAffineXMLRAW-NII_1" name="ANTs: Affine XML/RAW-NII" package="mrconn-custmod" version="1.0" posX="0" posY="0" sourceCode="">
+                <metadata>
+                        <data key="__creationDateKey" value="Mon Mar 31 12:13:38 EDT 2014" />
+                </metadata>
+                <output link="ConvertMATtoNII_1.OutputNii" id="ANTsAffineXMLRAW-NII_1.OutputNii" name="Output Nii" order="0" />
+                <input link="ConvertXMLRAWtoNII_1.FixedImageXMLFile" id="ANTsAffineXMLRAW-NII_1.FixedImageXMLFile" name="Fixed Image XML File" order="1" />
+                <input link="ConvertXMLRAWtoNII_2.MovingImageXMLFile" id="ANTsAffineXMLRAW-NII_1.MovingImageXMLFile" name="Moving Image XML File" order="2" />
+                <module id="ConvertXMLRAWtoNII_1" name="Convert XML/RAW to NII" package="mrconn-custmod" version="1.0" posX="231" posY="94" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/wrapper/basicWrapper.py" executableVersion="1.0">
+                        <authors>
+                                <author fullName="Nathan Drenkow" email="nathan.drenkow@jhuapl.edu" website="" />
+                        </authors>
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri May 11 12:38:03 EDT 2012" />
+                        </metadata>
+                        <input id="ConvertXMLRAWtoNII_1.FunctionName" name="Function Name" required="true" enabled="true" order="0">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>packages/file_reader/convertRawToNifti.m</value>
+                                </values>
+                        </input>
+                        <input id="ConvertXMLRAWtoNII_1.DebugMode" name="Debug Mode" description="This flag controls the debug mode included in the matlabInit wrapper.&#xA;If enabled(1) a breakpoint will be placed before the function call and an editor and workspace manager will be opened.  You can then step through execution.  You must VNC into the remote machine if running on a cluster to see the windows." required="false" enabled="true" order="3" prefix="-b" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>0</enumeration>
+                                        <enumeration>1</enumeration>
+                                </format>
+                                <values>
+                                        <value>0</value>
+                                </values>
+                        </input>
+                        <input id="ConvertXMLRAWtoNII_1.FixedImageXMLFile" name="Fixed Image XML File" required="true" enabled="true" order="1" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <output id="ConvertXMLRAWtoNII_1.OutputNii" name="Output Nii" required="false" enabled="true" order="2" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                                <stringExtract source="stdout" rule="stringMatch" startString="#@@#" endString="#@@#" caseSensitive="false" />
+                        </output>
+                        <executableAuthors>
+                                <author fullName="Nathan Drenkow" email="nathan.drenkow@jhuapl.edu" website="" />
+                        </executableAuthors>
+                </module>
+                <module id="ConvertMATtoNII_1" name="Convert MAT to NII" package="mrconn-custmod" version="1.0" posX="424" posY="435" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/wrapper/basicWrapper.py" executableVersion="1.0">
+                        <authors>
+                                <author fullName="Nathan Drenkow" email="nathan.drenkow@jhuapl.edu" website="" />
+                        </authors>
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri May 11 12:38:03 EDT 2012" />
+                        </metadata>
+                        <input id="ConvertMATtoNII_1.FunctionName" name="Function Name" required="true" enabled="true" order="0">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>packages/file_reader/convertMatToNifti.m</value>
+                                </values>
+                        </input>
+                        <input id="ConvertMATtoNII_1.DebugMode" name="Debug Mode" description="This flag controls the debug mode included in the matlabInit wrapper.&#xA;If enabled(1) a breakpoint will be placed before the function call and an editor and workspace manager will be opened.  You can then step through execution.  You must VNC into the remote machine if running on a cluster to see the windows." required="false" enabled="true" order="3" prefix="-b" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>0</enumeration>
+                                        <enumeration>1</enumeration>
+                                </format>
+                                <values>
+                                        <value>0</value>
+                                </values>
+                        </input>
+                        <input id="ConvertMATtoNII_1.ImageXMLFile" name="Image XML File" required="true" enabled="true" order="1" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="MAT File" extension="mat" description="Matrix describing transformation of image into standard space (found by first_flirt)." />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="ConvertMATtoNII_1.OutputNii" name="Output Nii" required="false" enabled="true" order="2" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <stringExtract source="stdout" rule="stringMatch" startString="#@@#" endString="#@@#" caseSensitive="false" />
+                        </output>
+                        <executableAuthors>
+                                <author fullName="Nathan Drenkow" email="nathan.drenkow@jhuapl.edu" website="" />
+                        </executableAuthors>
+                </module>
+                <module id="ConvertXMLRAWtoNII_2" name="Convert XML/RAW to NII" package="mrconn-custmod" version="1.0" posX="644" posY="94" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/wrapper/basicWrapper.py" executableVersion="1.0">
+                        <authors>
+                                <author fullName="Nathan Drenkow" email="nathan.drenkow@jhuapl.edu" website="" />
+                        </authors>
+                        <metadata>
+                                <data key="__creationDateKey" value="Fri May 11 12:38:03 EDT 2012" />
+                        </metadata>
+                        <input id="ConvertXMLRAWtoNII_2.FunctionName" name="Function Name" required="true" enabled="true" order="0">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>packages/file_reader/convertRawToNifti.m</value>
+                                </values>
+                        </input>
+                        <input id="ConvertXMLRAWtoNII_2.DebugMode" name="Debug Mode" description="This flag controls the debug mode included in the matlabInit wrapper.&#xA;If enabled(1) a breakpoint will be placed before the function call and an editor and workspace manager will be opened.  You can then step through execution.  You must VNC into the remote machine if running on a cluster to see the windows." required="false" enabled="true" order="3" prefix="-b" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>0</enumeration>
+                                        <enumeration>1</enumeration>
+                                </format>
+                                <values>
+                                        <value>0</value>
+                                </values>
+                        </input>
+                        <input id="ConvertXMLRAWtoNII_2.MovingImageXMLFile" name="Moving Image XML File" required="true" enabled="true" order="1" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <output id="ConvertXMLRAWtoNII_2.OutputNii" name="Output Nii" required="false" enabled="true" order="2" prefix="-s" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="Nii Gz" extension="nii.gz" description="Compressed Nifti" />
+                                        </fileTypes>
+                                </format>
+                                <stringExtract source="stdout" rule="stringMatch" startString="#@@#" endString="#@@#" caseSensitive="false" />
+                        </output>
+                        <executableAuthors>
+                                <author fullName="Nathan Drenkow" email="nathan.drenkow@jhuapl.edu" website="" />
+                        </executableAuthors>
+                </module>
+                <module id="ANTsRegistrationAffine_1" name="ANTs Registration (Affine)" package="ANTs" version="1.0" description="Use the ANTS program to perform affine registration" icon="0" posX="424" posY="249" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/ANTs/ANTs-1.9.v4-Linux/bin/ants_reg_affine.sh" executableVersion="1.9" gridVariables="virtual_free=8G">
+                        <authors>
+                                <author fullName="Dean Kleissas" email="dean.kleissas@jhuapl.edu" website="www.jhuapl.edu" />
+                        </authors>
+                        <citations>
+                                <citation>PMID: 17659998</citation>
+                        </citations>
+                        <tag>registration</tag>
+                        <tag>linear</tag>
+                        <tag>ants</tag>
+                        <tag>advanced</tag>
+                        <tag>normalization</tag>
+                        <tag>tools</tag>
+                        <tag>affine</tag>
+                        <uri>http://stnava.github.io/ANTs/</uri>
+                        <metadata>
+                                <data key="__creationDateKey" value="Tue Sep 06 18:36:49 PDT 2011" />
+                        </metadata>
+                        <input id="ANTsRegistrationAffine_1.Dimensions" name="Dimensions" description="Dimensions of images" required="true" enabled="true" order="0">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>2</enumeration>
+                                        <enumeration>3</enumeration>
+                                </format>
+                                <values>
+                                        <value>3</value>
+                                </values>
+                        </input>
+                        <input id="ANTsRegistrationAffine_1.FixedImage" name="Fixed Image" description="Fixed Image" required="true" enabled="true" order="1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="NIFTI GZ" extension="nii.gz" description="Gzipped NIFTI file." />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <input id="ANTsRegistrationAffine_1.MovingImage" name="Moving Image" description="Moving Image" required="true" enabled="true" order="2">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="NIFTI GZ" extension="nii.gz" description="Gzipped NIFTI file." />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                        <output id="ANTsRegistrationAffine_1.Output" name="Output" description="DO NOT USE. Dummy output for ANTs naming convention.  DO NOT USE." required="true" enabled="true" order="3">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <input id="ANTsRegistrationAffine_1.Preset" name="Preset" description="Argument Presets:&#xA;1 - Affine  + SyN - Fast for testing&#xA;2 - Affine  + SyN - Fast Higher Quality&#xA;3 - Affine  + SyN - Production Super High Quality&#xA;4 -  Affine  + SyN - Custom (make sure to enable all custom params!)" required="true" enabled="true" order="5">
+                                <format type="Enumerated" cardinality="1">
+                                        <enumeration>1</enumeration>
+                                        <enumeration>2</enumeration>
+                                        <enumeration>3</enumeration>
+                                        <enumeration>4</enumeration>
+                                </format>
+                                <values>
+                                        <value>1</value>
+                                </values>
+                        </input>
+                        <input id="ANTsRegistrationAffine_1.Iterations" name="Iterations" description="Max iterations &#xA;Fast: 10000x0x0&#xA;Production: 10000x111110x11110" required="false" enabled="false" order="6">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="ANTsRegistrationAffine_1.Percentage" name="Percentage" description="Percentage&#xA;Fast: 0.1&#xA;Production: 0.3" required="false" enabled="false" order="7">
+                                <format type="Number" cardinality="1" />
+                        </input>
+                        <output id="ANTsRegistrationAffine_1.AffineTransform" name="Affine Transform" description="Output affine transform matrix that can be used by ANTs Warp to warp other images." required="true" enabled="true" order="4">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="MAT File" extension="mat" description="Matrix describing transformation of image into standard space (found by first_flirt)." />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                        <executableAuthors>
+                                <author fullName="Brian Avants" email="" website="" />
+                        </executableAuthors>
+                </module>
+                <variables>
+                        <variable name="classP">/usr/local/mipav:/usr/local/mipav/lib/*:/usr/local/mipav/lib/*/*:/usr/local/mipav/InsightToolkit/lib/InsightToolkit/InsightToolkit.jar:/usr/local/JIST/library/*:/usr/local/JIST</variable>
+                </variables>
+        </moduleGroup>
+</pipeline>
+

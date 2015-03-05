@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <moduleGroup id="Untitled_1" name="Untitled" posX="0" posY="0" sourceCode="">
+                <module id="BinaryMaskThreshold_1" name="Binary Mask Threshold" package="mrconn-jistmod" version="1.0" posX="267" posY="156" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/mipav/jre/bin/java" executableVersion="1.0" envVariables="DISPLAY=localhost:99.0">
+                        <authors>
+                                <author fullName="Zachary Koterba" email="Zachary.Koterba@jhuapl.edu" website="" />
+                        </authors>
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Wed Dec 05 09:06:29 EST 2012" />
+                        </metadata>
+                        <input id="BinaryMaskThreshold_1.-xFile" name="-xFile" required="true" enabled="true" order="4" prefix="-xFile" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="BinaryMaskThreshold_1.edu.jhu.ece.iacl.jist.cli.run" name="edu.jhu.ece.iacl.jist.cli.run" required="true" enabled="true" order="1" prefix="edu.jhu.ece.iacl.jist.cli.run" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>edu.jhu.ece.iacl.plugins.utilities.volume.MedicAlgorithmThresholdToBinaryMask</value>
+                                </values>
+                        </input>
+                        <input id="BinaryMaskThreshold_1.-classpath" name="-classpath" required="true" enabled="true" order="0" prefix="-classpath" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                                <values>
+                                        <value>{classP}</value>
+                                </values>
+                        </input>
+                        <input id="BinaryMaskThreshold_1.InputVolume" name="Input Volume" required="false" enabled="true" order="2" prefix="-inLabel" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="BinaryMaskThreshold_1.-xDir" name="-xDir" required="true" enabled="true" order="3" prefix="-xDir" prefixSpaced="true" prefixAllArgs="false">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <output id="BinaryMaskThreshold_1.-outExecution" name="-outExecution" required="false" enabled="true" order="5">
+                                <format type="String" cardinality="1" />
+                        </output>
+                        <executableAuthors>
+                                <author fullName="Zachary Koterba" email="Zachary.Koterba@jhuapl.edu" website="" />
+                        </executableAuthors>
+                </module>
+                <variables>
+                        <variable name="outputDir">/mnt/pipelineShare/pipelineScratch</variable>
+                        <variable name="sourceDir">/mnt/pipelineShare/tools/mrcap/sub1</variable>
+                        <variable name="sub">KKI2009-01</variable>
+                        <variable name="classP">/mnt/pipelineShare/tools/dolphin/mipav:/mnt/pipelineShare/tools/dolphin/mipav/lib/*:/mnt/pipelineShare/tools/dolphin/mipav/lib/*/*:/mnt/pipelineShare/tools/dolphin/mipav/InsightToolkit/lib/InsightToolkit/InsightToolkit.jar:/mnt/pipelineShare/tools/dolphin/JIST-CRUISE-2012Jan29-11-11PM/library/*:/mnt/pipelineShare/tools/dolphin/JIST-CRUISE-2012Jan29-11-11PM</variable>
+                </variables>
+        </moduleGroup>
+</pipeline>
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".2">
+        <moduleGroup id="XMLRAWtoNII.GZ_1" name="XML/RAW to NII.GZ" package="mrconn-custmod" version="1.0" posX="0" posY="0" sourceCode="">
+                <tag />
+                <metadata>
+                        <data key="__creationDateKey" value="Thu Dec 12 15:02:50 EST 2013" />
+                </metadata>
+                <module id="XMLRAWtoNIIGZ_1" name="XMLRAW to NIIGZ" package="mrconn-custmod" posX="401" posY="315" sourceCode="" location="pipeline://darkhelmet.jhuapl.edu//mnt/pipelineShare/tools/mrconn/utilities/convert_to_nii.py">
+                        <tag />
+                        <metadata>
+                                <data key="__creationDateKey" value="Thu Dec 12 15:04:48 EST 2013" />
+                        </metadata>
+                        <input id="XMLRAWtoNIIGZ_1.input_xml" name="input_xml" required="true" enabled="true" order="0">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <input id="XMLRAWtoNIIGZ_1.output_dir" name="output_dir" required="true" enabled="true" order="1">
+                                <format type="String" cardinality="1" />
+                        </input>
+                        <output id="XMLRAWtoNIIGZ_1.output_file" name="output_file" required="false" enabled="true" order="2">
+                                <format type="String" cardinality="1" />
+                                <stringExtract source="stdout" rule="stringMatch" startString="#@@# " endString=" #@@#" caseSensitive="false" />
+                        </output>
+                        <output id="XMLRAWtoNIIGZ_1.original_hdr" name="original_hdr" required="false" enabled="true" order="3">
+                                <format type="String" cardinality="1" />
+                                <stringExtract source="stdout" rule="stringMatch" startString="#@@@# " endString=" #@@@#" caseSensitive="false" />
+                        </output>
+                </module>
+        </moduleGroup>
+</pipeline>
+
