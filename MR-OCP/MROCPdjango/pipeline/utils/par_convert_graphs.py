@@ -21,9 +21,11 @@
 
 import argparse
 import multiprocessing as mp 
-import os
+import os, sys
 from glob import glob
 
+from paths import include
+include()
 from mrcap.utils import igraph_io
 
 def read_and_convert(inouttup):
@@ -68,7 +70,7 @@ def main():
   parser = argparse.ArgumentParser(description="Convert graph files from one format to another")
   parser.add_argument("indir", action="store", help="Input directory")
   parser.add_argument("infmt", action="store", help="Input format")
-  parser.add_argument("outdir", action="store", help="Input directory")
+  parser.add_argument("outdir", action="store", help="Output directory")
   parser.add_argument("outfmt", action="store", help="Output format")
   parser.add_argument("num_procs", action="store", type=int, help="The number of processing units")
   result = parser.parse_args()
