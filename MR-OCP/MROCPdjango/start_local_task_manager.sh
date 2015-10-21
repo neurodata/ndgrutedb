@@ -15,6 +15,10 @@
 
 # Coz I keep forgetting!
 
-sudo rabbitmq-server
-#sudo rabbitmq-server -detached
+sudo rabbitmq-server -detached
 sudo supervisord -c /etc/supervisord.conf
+#sudo rabbitmq-server
+# rabbitmqctl stop
+#sudo supervisorctl stop mrocp:
+#sudo supervisorctl start mrocp:
+#sudo supervisorctl restart mrocp:
