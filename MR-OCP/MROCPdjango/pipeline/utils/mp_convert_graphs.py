@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-# par_convert_graphs.py
+# mp_convert_graphs.py
 # Created by Disa Mhembere on 2015-10-11.
 # Email: disa@jhu.edu
 
