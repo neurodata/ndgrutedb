@@ -265,7 +265,7 @@ def get_genus(fn):
 def get_equiv_fn(fn, fmt="ncol"):
   basename = os.path.splitext(os.path.basename(fn))[0]
 
-  outfn = os.path.join(settings.GRAPH_DIR, fmt) + basename + "." + fmt
+  outfn = os.path.join(settings.BASE_GRAPH_DIR, fmt, basename) + "." + fmt
   if os.path.exists(outfn):
     print "Found equiv file in {}".format(outfn)
     return outfn

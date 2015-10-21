@@ -28,6 +28,8 @@ import os
 import tempfile, zipfile
 import argparse
 from util import get_genus
+from django.conf import settings
+from glob import glob
 
 def zipFilesFromFolders(dirName = None, multiTuple = []):
   '''
@@ -135,7 +137,11 @@ def zipfiles(files, use_genus, zip_out_fn=None, gformat=None, todisk=None):
       archive_name = os.path.basename(fn)
 
     zipf.write(fn, archive_name, zipfile.ZIP_DEFLATED)
-    os.remove(fn)
+
+    # Only remove temporary files
+    if (fn.startswith("/tmp") or (fn in glob(os.path.join(settings.TEMP_DIR, "*")))):
+      print "Deleting %s ..." % fn
+      os.remove(fn)
   zipf.close()
 
   return zip_file
