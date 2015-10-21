@@ -25,72 +25,84 @@ import argparse
 import tempfile
 import os
 
-from pipeline.utils.zipper import zipfiles
-from pipeline.utils.util import get_genus
+from pipeline.utils.util import get_genus, get_equiv_fn
 from mrcap.utils.downsample import downsample
 from mrcap.utils import igraph_io
-from pipeline.utils.util import sendJobFailureEmail, sendJobCompleteEmail
 
-def scale_convert(selected_files, dl_format, ds_factor, ATLASES, email=None, dwnld_loc=None, zip_fn=None):
-  # Debug
-  print "Entering scale function ..."
+class TempGraph(object):
+  """
+  Helper class used to organize the result of a downsample operations
+  Has 3 attrs an orginal file (calee), a tempfile (result) and a possible
+  error message
+  """
+  def __init__(self, orig_fn, temp_fn="", err_msg=""):
+    self.orig_fn = orig_fn
+    self.temp_fn = temp_fn
+    self.err_msg = err_msg
+
+  def _make_fn(self):
+    print "Creating temp file ..."
+    tmpfile = tempfile.NamedTemporaryFile("w", delete=False, dir="/data/pytmp")
+    print "Temp file %s created ..." % tmpfile.name
+    tmpfile.close()
+
+    self.temp_fn = tmpfile.name
+
+  def _add_error(self, msg):
+    self.err_msg = msg
+  
+  def get_error(self):
+    return self.err_msg
+
+  def has_error(self):
+    return len(self.err_msg) > 0
+
+  def has_temp_fn(self):
+    return len(self.temp_fn) > 0
+
+  def get_temp_fn(self):
+    return self.temp_fn
+
+  def get_orig_fn(self):
+    return self.orig_fn
+
+  def free(self):
+    if os.path.exists(self.get_temp_fn()):
+      print "Deleting %s ..." % self.get_temp_fn()
+      os.remove(self.get_temp_fn())
+
+  def __repr__(self):
+    return "Orig: '{}', Temp: '{}', Error: '{}'".format(self.orig_fn, self.temp_fn, self.err_msg)
+
+def scale_convert(fn, dl_format, ds_factor, ATLASES):
+  print "Entering scale function with file '{}'...".format(fn)
+  ret = TempGraph(fn)
   try:
-    if dl_format == "graphml" and ds_factor == 0:
-      temp = zipfiles(selected_files, use_genus=True, zip_out_fn=zip_fn)
+    # Downsample only valid for *BIG* human brains!
+    # *NOTE: If smallgraphs are ingested this will break
 
+    if ds_factor and get_genus(fn) == "human":
+      if isinstance(ds_factor, int): # Downsample by a factor
+        print "downsampling to factor %d" % ds_factor
+        g = downsample(igraph_io.read_arbitrary(fn, "graphml"), ds_factor)
+        print "downsample complete"
+      else: # Or downsample by an atlas
+        g = downsample(igraph_io.read_arbitrary(fn, "graphml"), atlas=nib_load(ATLASES[ds_factor]))
     else:
-      files_to_zip = {}
-
-      for fn in selected_files:
-        # No matter what we need a temp file
-        print "Creating temp file ..."
-        tmpfile = tempfile.NamedTemporaryFile("w", delete=False, dir="/data/pytmp")
-        print "Temp file %s created ..." % tmpfile.name
-        tmpfile.close()
-
-        # Downsample only valid for *BIG* human brains!
-        # *NOTE: If smallgraphs are ingested this will break
-
-        if ds_factor and get_genus(fn) == "human":
-          if isinstance(ds_factor, int):
-            print "downsampling to factor %d" % ds_factor
-            g = downsample(igraph_io.read_arbitrary(fn, "graphml"), ds_factor)
-            print "downsample complete"
-          else:
-            g = downsample(igraph_io.read_arbitrary(fn, "graphml"), atlas=nib_load(ATLASES[ds_factor]))
-        else:
-          g = igraph_io.read_arbitrary(fn, "graphml")
-
-        # Write to `some` format
-        if dl_format == "mm":
-          igraph_io.write_mm(g, tmpfile.name)
-        else:
-          g.write(tmpfile.name, format=dl_format)
-
-        files_to_zip[fn] = tmpfile.name
-
-      temp = zipfiles(files_to_zip, use_genus=True, zip_out_fn=zip_fn, gformat=dl_format)
-      # Del temp files
-      for tmpfn in files_to_zip.values():
-        print "Deleting %s ..." % tmpfn
-        os.remove(tmpfn)
+      g = igraph_io.read_arbitrary(get_equiv_fn(fn), "graphml")
+    
+    # We are able to read the i/p fn so create rest of object
+    ret._make_fn()
+    
+    # Write to `some` format
+    if dl_format == "mm":
+      igraph_io.write_mm(g, ret.get_temp_fn())
+    else:
+      g.write(ret.get_temp_fn(), format=dl_format)
 
   except Exception, msg:
     print "An exception was thrown and caught with message %s!" % msg
-    if email:
-      msg = """
-Hello,\n\nYour most recent job failed to complete.
-\nYou may have some partially completed data at {}.\n\n
-"""
-      sendJobFailureEmail(email, msg, dwnld_loc)
-      return
-    else:
-      return 'An error occurred while processing your request. Please send an email to \
-              <a href="mailto:jhmrocp@cs.jhu.edu">jhmrocp@cs.jhu.edu</a> with the details of your request.'
-
-  if email:
-    # Email user of job finished
-    sendJobCompleteEmail(email, dwnld_loc)
+    ret._add_error(msg)
     return
 
-  return temp # Case where its an iteractive download
+  return ret

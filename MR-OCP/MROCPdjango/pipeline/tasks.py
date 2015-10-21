@@ -20,8 +20,12 @@
 
 from __future__ import absolute_import
 
-from celery import task
+from celery import task, group
 from django.conf import settings
+from pipeline.utils.util import sendJobFailureEmail, sendJobCompleteEmail
+from pipeline.utils.util import get_genus, get_equiv_fn
+from pipeline.procs.scale_convert import TempGraph
+from pipeline.utils.zipper import zipfiles
 
 #import logging
 #logger = logging.getLogger("mrocp")
@@ -65,8 +69,51 @@ def task_build(derivatives, graph_loc, graphsize, invariants,
   print "Exiting build task ..."
 
 @task(queue="mrocp")
-def task_scale(selected_files, dl_format, ds_factor, ATLASES, email=None, dwnld_loc=None, zip_fn=None):
+def task_scale(_file, dl_format, ds_factor, ATLASES):
   from pipeline.procs.scale_convert import scale_convert
-  print "Entering download task ..."
-  scale_convert(selected_files, dl_format, ds_factor, ATLASES, email, dwnld_loc, zip_fn)
-  print "Exiting download task ..."
+  print "Entering download/scale task ..."
+  out = scale_convert(_file, dl_format, ds_factor, ATLASES)
+  print "Exiting download/scale task ..."
+  return out.__dict__
+
+# Multiprocessed scaling
+@task(queue="mrocp")
+def task_mp_scale(selected_files, dl_format, ds_factor, ATLASES, email=None, dwnld_loc=None, zip_fn=None):
+  print "Entering multiprocess download/scale task ..."
+
+  err_msg = ""
+
+  if dl_format == "graphml" and ds_factor == 0:
+    zipfiles(selected_files, use_genus=True, zip_out_fn=zip_fn)
+  elif get_genus(selected_files[0]) == "human" and dl_format == "ncol" and ds_factor == 0:
+    zipfiles(map(get_equiv_fn, selected_files), use_genus=True, zip_out_fn=zip_fn)
+  
+  else:
+    # Create the list of task
+    funcs = map((lambda fn: task_scale.s(fn, dl_format, ds_factor, ATLASES)), selected_files)
+    callback = group(funcs)()
+    result = callback.get()
+
+    # Zip any results if present and Check for errors
+    files_to_zip = {}
+
+    for _dict in result:
+      obj = TempGraph(_dict["orig_fn"], _dict["temp_fn"], _dict["err_msg"])
+      if (obj.has_error()):
+        err_msg += "\n- " + obj.get_error()
+      if (obj.has_temp_fn()):
+        print "Adding {}:{} to zips".format(obj.get_temp_fn(), obj.get_orig_fn())
+        files_to_zip[obj.get_temp_fn()] = obj.get_orig_fn()
+
+    print "Attempting zip ..."
+    zipfiles(files_to_zip, use_genus=True, zip_out_fn=zip_fn, gformat=dl_format)
+
+  if err_msg:
+    msg = "Hello,\n\nYour most recent job failed to fully complete." \
+          "\nYou may have some partially completed data at {}. The " \
+          "error messages received are: {}\n\n".format(dwnld_loc, err_msg)
+
+    sendJobFailureEmail(email, msg, dwnld_loc)
+  else:
+    sendJobCompleteEmail(email, dwnld_loc)
+    print "Exiting multiprocess download/scale task ..."
