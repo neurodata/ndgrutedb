@@ -88,8 +88,9 @@ def scale_convert(fn, dl_format, ds_factor, ATLASES):
         print "downsample complete"
       else: # Or downsample by an atlas
         g = downsample(igraph_io.read_arbitrary(fn, "graphml"), atlas=nib_load(ATLASES[ds_factor]))
-    else:
-      g = igraph_io.read_arbitrary(get_equiv_fn(fn), "graphml")
+    else: # No downsample at all
+      fn = get_equiv_fn(fn)
+      g = igraph_io.read_arbitrary(fn, os.path.splitext(fn)[1][1:])
     
     # We are able to read the i/p fn so create rest of object
     ret._make_fn()
@@ -103,6 +104,5 @@ def scale_convert(fn, dl_format, ds_factor, ATLASES):
   except Exception, msg:
     print "An exception was thrown and caught with message %s!" % msg
     ret._add_error(msg)
-    return
 
   return ret

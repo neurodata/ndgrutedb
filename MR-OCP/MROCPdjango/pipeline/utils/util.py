@@ -267,7 +267,7 @@ def get_equiv_fn(fn, fmt="ncol"):
 
   outfn = os.path.join(settings.BASE_GRAPH_DIR, fmt, basename) + "." + fmt
   if os.path.exists(outfn):
-    print "Found equiv file in {}".format(outfn)
+    print "Found equiv file in {}!".format(outfn)
     return outfn
   else: return fn
 
