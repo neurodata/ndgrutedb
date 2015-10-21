@@ -33,11 +33,16 @@ def read_and_convert(inouttup):
   assert len(inouttup) == 4, "arg1 of read_and_convert takes a len = 4 tuple!" 
   inname, infmt, outname, outfmt  = inouttup
 
-  print "Reading graph {}".format(inname)
-  g = igraph_io.read_arbitrary(inname, infmt)
-  print "Writing graph {}".format(outname)
-  g.write(outname, format=outfmt)
-
+  if (os.path.exists(outname)):
+      print "Skipping '{}' --> already exists".format(outname)
+  else:
+    try:
+      print "Reading graph {}".format(inname)
+      g = igraph_io.read_arbitrary(inname, infmt)
+      print "Writing graph {}".format(outname)
+      g.write(outname, format=outfmt)
+    except Exception, msg:
+        print "\t\tERROR: file '{}' failed! with msg: '{}'".format(inname, msg)
 
 def get_outname(inname, outdir, outfmt):
   return os.path.join(outdir, os.path.splitext(os.path.basename(inname))[0]+"."+outfmt)
