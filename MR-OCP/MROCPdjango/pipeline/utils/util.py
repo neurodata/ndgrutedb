@@ -262,6 +262,17 @@ def get_genus(fn):
 
 #####################################################################################
 
+def get_equiv_fn(fn, fmt="ncol"):
+  basename = os.path.splitext(os.path.basename(fn))[0]
+
+  outfn = os.path.join(settings.GRAPH_DIR, fmt) + basename + "." + fmt
+  if os.path.exists(outfn):
+    print "Found equiv file in {}".format(outfn)
+    return outfn
+  else: return fn
+
+#####################################################################################
+
 def get_script_prefix():
   from django.core.urlresolvers import get_script_prefix as gsp
   from ocpipeline.settings import URL_BASE
