@@ -126,13 +126,16 @@ def zipfiles(files, use_genus, zip_out_fn=None, gformat=None, todisk=None):
   zipf = zipfile.ZipFile(zip_file, 'w', compression=zipfile.ZIP_DEFLATED, allowZip64=True)
   for fn in files:
     print "Compressing %s ..." % fn
-    archive_name = fn if not use_genus else fn[fn.rfind(get_genus(fn)):]
 
     if isinstance(files, dict):
-      archive_name = os.path.splitext(archive_name)[0]+"."+gformat
-      fn = files[fn]
+      genus = get_genus(files[fn])
+      archive_name = os.path.join(genus, os.path.basename(os.path.splitext(files[fn])[0])) + "." + gformat
+      print "Final archive name %s" % archive_name
+    else:
+      archive_name = os.path.basename(fn)
 
-    zipf.write(os.path.abspath(fn), archive_name, zipfile.ZIP_DEFLATED)
+    zipf.write(fn, archive_name, zipfile.ZIP_DEFLATED)
+    os.remove(fn)
   zipf.close()
 
   return zip_file
