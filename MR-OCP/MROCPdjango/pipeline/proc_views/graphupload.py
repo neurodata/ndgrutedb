@@ -23,7 +23,7 @@ from glob import glob
 import os
 from time import strftime, localtime
 
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.conf import settings
@@ -31,12 +31,8 @@ from django.conf import settings
 from pipeline.forms import GraphUploadForm
 from pipeline.utils.util import makeDirIfNone, writeBodyToDisk, saveFileToDisk
 from pipeline.utils.util import sendJobBeginEmail
-from pipeline.procs.inv_compute import invariant_compute
-from pipeline.utils.zipper import unzip 
-from pipeline.procs.run_invariants import run_invariants
-from pipeline.tasks import task_invariant_compute
+from pipeline.tasks import task_mp_invariant_compute
 from pipeline.utils.util import get_script_prefix
-from pipeline.utils.util import get_download_path
 
 def graphLoadInv(request):
   ''' Form '''
@@ -68,9 +64,8 @@ def graphLoadInv(request):
       # Launch thread for graphs & email user
       sendJobBeginEmail(request.session['email'], invariants, genGraph=False)
 
-      for graph_fn in graphs:
-        task_invariant_compute.delay(invariants, graph_fn, invariants_path, 
-                data_dir, form.cleaned_data['graph_format'], request.session['email'])
+      task_mp_invariant_compute.delay(invariants, graphs, invariants_path, 
+          data_dir, form.cleaned_data['graph_format'], request.session['email'])
 
       request.session['success_msg'] = \
 """
