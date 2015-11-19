@@ -26,6 +26,7 @@ from pipeline.utils.util import sendJobFailureEmail, sendJobCompleteEmail
 from pipeline.utils.util import get_genus, get_equiv_fn
 from pipeline.procs.scale_convert import TempGraph
 from pipeline.utils.zipper import zipfiles
+from pipeline.utils.util import get_download_path
 
 #import logging
 #logger = logging.getLogger("mrocp")
@@ -44,13 +45,40 @@ def task_convert(media_root, upload_fn, convert_file_save_loc,
   print "Exiting convert task ..."
 
 @task(queue="mrocp")
-def task_invariant_compute(invariants, graph_fn, invariants_path, 
-                                            data_dir, in_graph_format, to_email):
+def task_invariant_compute(invariants, graph_fn, invariants_path, in_graph_format):
   print "Entering invariant task ..."
   from pipeline.procs.inv_compute import invariant_compute
-  invariant_compute(invariants, graph_fn, invariants_path, 
-        data_dir, in_graph_format, to_email)
+  res = invariant_compute(invariants, graph_fn, invariants_path, in_graph_format)
   print "Exiting invariant task ..."
+  return res
+
+@task(queue="mrocp")
+def task_mp_invariant_compute(invariants, graph_fns, invariants_path, 
+    data_dir, in_graph_format, to_email):
+  print "Entering multiprocess invariant compute task ..."
+
+  dwnld_loc = get_download_path(data_dir)
+  funcs = map((lambda fn: task_invariant_compute.s(invariants, fn, invariants_path,
+      in_graph_format)), graph_fns)
+
+  callback = group(funcs)()
+  result = callback.get()
+
+  err_msg = ""
+  for msg in result:
+    if msg:
+     ## There's an error of some kind so accumulate errors
+      err_msg += msg
+
+  if not err_msg:
+    sendJobCompleteEmail(to_email, dwnld_loc)
+  else:
+    err_msg = "Hello,\n\nYour most recent job a had failure." +\
+    "\n\n You may have some partially completed data at {}." +\
+    "\nERROR(S): \n".format(dwnld_loc) + err_msg +\
+    "Please check these and try again.\n\n"
+
+    sendJobFailureEmail(to_email, err_msg, dwnld_loc)
 
 @task(queue="mrocp")
 def task_runc4(dti_path, mprage_path, bvalue_path, bvector_path, graph_size, atlas, email):
