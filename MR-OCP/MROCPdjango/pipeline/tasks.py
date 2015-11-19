@@ -19,10 +19,11 @@
 # Email: disa@jhu.edu
 
 from __future__ import absolute_import
+import os
 
 from celery import task, group
 from django.conf import settings
-from pipeline.utils.util import sendJobFailureEmail, sendJobCompleteEmail
+from pipeline.utils.util import sendJobFailureEmail, sendJobCompleteEmail, sendEmail
 from pipeline.utils.util import get_genus, get_equiv_fn
 from pipeline.procs.scale_convert import TempGraph
 from pipeline.utils.zipper import zipfiles
@@ -31,18 +32,60 @@ from pipeline.utils.util import get_download_path
 #import logging
 #logger = logging.getLogger("mrocp")
 
-@task(queue='mrocp')
+@task(queue="mrocp")
 def mrocp(param):
   print "The param was {0}!!!".format(param)
   return "EXITED CORRECTLY"
 
 @task(queue="mrocp")
-def task_convert(media_root, upload_fn, convert_file_save_loc, 
-                                input_format, output_format, to_email):
+def task_convert(upload_fn, convert_file_save_loc, input_format, output_format):
   print "Entering convert task ..."
-  from pipeline.procs.convert import convert
-  convert(media_root, upload_fn,convert_file_save_loc,  input_format, output_format, to_email) 
+  from computation.utils import convertTo
+
+  outfn, err_msg = convertTo.convert_graph(upload_fn, input_format, convert_file_save_loc, *output_format)
+  if (err_msg):
+    res = "- File: '{}'\n- '{}'\n\n".format(outfn, err_msg)
+  else: res = 0
+
   print "Exiting convert task ..."
+  return res
+
+@task(queue="mrocp")
+def task_mp_convert(upload_fns, convert_file_save_loc, input_format, output_format, to_email):
+  # Send begin job email
+  content = "Hello,\n\n You requested the following files be converted:"
+  for fn in upload_fns:
+    content += "\n- " + os.path.basename(fn)
+  content += "\n\nTo the following formats:"
+  for fmt in output_format:
+    content += "\n- " + fmt
+
+  sendEmail(to_email, "Job launch Notification", content+"\n\n")
+  # End Email junk
+
+  print "Entering multiprocess convert ..."
+  funcs = map((lambda fn: task_convert.s(fn, convert_file_save_loc, input_format, output_format)), upload_fns)
+  callback = group(funcs)()
+  result = callback.get()
+
+  dwnld_loc = get_download_path(convert_file_save_loc)
+
+  err_msg = ""
+
+  for msg in result:
+    if msg:
+     ## There's an error of some kind so accumulate errors
+      err_msg += msg
+
+  if not err_msg:
+    sendJobCompleteEmail(to_email, dwnld_loc)
+  else:
+    err_msg = "Hello,\n\nYour most recent job a had failure." +\
+    "\n\n You may have some partially completed data at {}." +\
+    "\nHere's an error list:\n".format(dwnld_loc) + err_msg +\
+    "Please check these and try again.\n\n"
+
+    sendJobFailureEmail(to_email, err_msg, dwnld_loc)
 
 @task(queue="mrocp")
 def task_invariant_compute(invariants, graph_fn, invariants_path, in_graph_format):
