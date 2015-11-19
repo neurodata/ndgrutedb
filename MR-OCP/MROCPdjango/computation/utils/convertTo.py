@@ -42,6 +42,7 @@ def convert_graph(gfn, informat, save_dir, *outformats):
   save_dir - the directory where we save result to
   outformat - a list of output formats
   """
+
   try:
     if informat in ["graphml", "ncol", "edgelist", "lgl", "pajek", "graphdb"]:
       g = igraph.read(gfn, None)
@@ -54,10 +55,10 @@ def convert_graph(gfn, informat, save_dir, *outformats):
     else:
       err_msg = "[ERROR]: Unknown format '%s'. Please check format and retry!" % informat
       print err_msg
-      return (None, err_msg)
+      return (os.path.basename(gfn), err_msg)
   except Exception, err_msg:
     print err_msg
-    return (None, "[ERROR]: "+str(err_msg))
+    return (os.path.basename(gfn), "[ERROR]: "+str(err_msg))
 
   out_err_msg = ""
   fn = ""
