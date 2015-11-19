@@ -31,7 +31,7 @@ from pipeline.utils.util import sendJobBeginEmail, check_email
 from pipeline.procs.inv_compute import invariant_compute
 from pipeline.utils.zipper import unzip 
 from pipeline.procs.run_invariants import run_invariants
-from pipeline.tasks import task_invariant_compute
+from pipeline.tasks import task_mp_invariant_compute
 from pipeline.utils.util import get_script_prefix
 
 
@@ -70,7 +70,7 @@ def graph_load_inv_prog(request, webargs):
     graph_invariants_loc = os.path.join(data_dir, 'graphInvariants')
     makeDirIfNone([graph_invariants_loc])
 
-    task_invariant_compute.delay(invariants, uploadedZip, graph_invariants_loc, 
+    task_mp_invariant_compute.delay(invariants, uploadedZip, graph_invariants_loc, 
         data_dir, in_graph_format, to_email)
 
     sendJobBeginEmail(to_email, invariants)
