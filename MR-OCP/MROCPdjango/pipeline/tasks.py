@@ -75,7 +75,7 @@ def task_mp_invariant_compute(invariants, graph_fns, invariants_path,
   else:
     err_msg = "Hello,\n\nYour most recent job a had failure." +\
     "\n\n You may have some partially completed data at {}." +\
-    "\nERROR(S): \n".format(dwnld_loc) + err_msg +\
+    "\n\n".format(dwnld_loc) + err_msg +\
     "Please check these and try again.\n\n"
 
     sendJobFailureEmail(to_email, err_msg, dwnld_loc)
