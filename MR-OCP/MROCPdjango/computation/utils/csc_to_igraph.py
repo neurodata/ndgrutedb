@@ -27,6 +27,7 @@ import igraph
 from file_util import loadAnyMat
 from time import time
 import os
+import numpy as np
 
 def csc_to_igraph(g):
   """
@@ -49,7 +50,10 @@ def csc_to_igraph(g):
   print "Adding edges to igraph ..."
   ig += all_edges
 
-  # TODO - use save etc ...
+  if not np.array_equal(g.data, [1]*g.data.size):
+    print "Adding edge weights"
+    ig.es["weight"] = g.data
+
   return ig
 
 def csc_to_r_igraph(g):
@@ -89,16 +93,27 @@ def test():
   Test function ran with -t flag
   """
   print "Running 5 node test ...."
+  """
   g = csc_matrix([
-        [0, 1, 0, 0, 1],
-        [1, 0, 1, 1, 0],
-        [0, 1, 0, 1, 0],
-        [0, 1, 1, 0, 0],
-        [1, 0, 0, 0, 1]
+          [0, 1, 0, 0, 1],
+          [1, 0, 1, 1, 0],
+          [0, 1, 0, 1, 0],
+          [0, 1, 1, 0, 0],
+          [1, 0, 0, 0, 1]
+          ])
+  """
+  g = csc_matrix([
+        [0, 5, 0, 0, 4],
+        [2, 0, 2, 1, 0],
+        [0, 1, 0, 4, 0],
+        [0, 6, 9, 0, 0],
+        [1, 0, 0, 0, 11]
         ])
   print "Input csc: \n", g.todense()
 
-  print "Python igraph ...\n", csc_to_igraph(g).get_adjacency()
+  pig = csc_to_igraph(g)
+  print "Python igraph ...\n", pig.get_adjacency()
+
 
   from r_utils import r_igraph_get_adjacency
   print "R igraph ...\n", r_igraph_get_adjacency(csc_to_r_igraph(g))
