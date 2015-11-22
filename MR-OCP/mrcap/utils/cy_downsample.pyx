@@ -31,11 +31,13 @@ import downsample_atlas
 import nibabel as nib
 import zipfile
 from zindex import MortonXYZ
-import numpy as np
+cimport numpy as np
 import cPickle as pickle
 
+from libc.stdlib cimport malloc, free
+
 DEBUG = False
-def downsample(g, int factor=-1, ds_atlas=None, bint ignore_zero=True):
+def downsample(g, factor=-1, ds_atlas=None, bint ignore_zero=True):
   """
 	Downsample a graph by a scale factor.
 
@@ -70,8 +72,11 @@ def downsample(g, int factor=-1, ds_atlas=None, bint ignore_zero=True):
   ds_atlas = ds_atlas.get_data() # don't care about other atlas data
 
   #spatial_map = [0]*(int(ds_atlas.max())+1) 
-  cdef long spatial_map [(int(ds_atlas.max())+1)] # TODO: Default is 0?
-  cdef long src_spatial_id, src_spatial_id
+  cdef long *spatial_map = <long *>malloc((long(ds_atlas.max())+1) * sizeof(long))
+  if not spatial_map:
+    raise MemoryError()
+
+  cdef long src_spatial_id, tgt_spatial_id
   cdef long src_x, src_y, src_z, tgt_x, tgt_y, tgt_z
   cdef long src, tgt
 
@@ -80,7 +85,7 @@ def downsample(g, int factor=-1, ds_atlas=None, bint ignore_zero=True):
   vertices = g.vs
   for idx in xrange(len(edges)): # TODO: check xrange vs range
     src_spatial_id = long(vertices[edges[idx].source]["spatial_id"])
-    src_spatial_id = long(vertices[edges[idx].target]["spatial_id"])
+    tgt_spatial_id = long(vertices[edges[idx].target]["spatial_id"])
 
     src_x, src_y, src_z = MortonXYZ(src_spatial_id)
     tgt_x, tgt_y, tgt_z = MortonXYZ(tgt_spatial_id)
@@ -100,11 +105,18 @@ def downsample(g, int factor=-1, ds_atlas=None, bint ignore_zero=True):
       if not spatial_map[src]: spatial_map[src] = `src_spatial_id`
       if not spatial_map[tgt]: spatial_map[tgt] = `tgt_spatial_id` 
 
-      edge_dict[(src, tgt)] += e["weight"]
+      edge_dict[(src, tgt)] += edges[idx]["weight"]
 
   del g # free me
-  new_graph = igraph.Graph(n=len(spatial_map), directed=False) # len spatial_map is the # of vertices
-  new_graph.vs["spatial_id"] = spatial_map
+
+  # TODO: Make this conversion faster or use a better container
+  py_spatial_map = []
+  for idx in xrange((long(ds_atlas.max())+1)):
+    py_spatial_map.append(spatial_map[idx])
+  new_graph = igraph.Graph(n=len(py_spatial_map), directed=False) # len spatial_map is the # of vertices
+  new_graph.vs["spatial_id"] = py_spatial_map
+
+  free(spatial_map)
   
   print "Adding edges to graph ..."
   new_graph += edge_dict.keys()
