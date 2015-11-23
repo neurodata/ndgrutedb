@@ -23,15 +23,15 @@ from glob import glob
 from collections import defaultdict
 import os, sys
 import igraph
-sys.path += [os.path.abspath("../..")]
 from mrcap.atlas import Atlas 
 from mrcap.utils import igraph_io
 from time import time
-import downsample_atlas
+import cy_downsample_atlas
 import nibabel as nib
 import zipfile
 from zindex import MortonXYZ
-cimport numpy as np
+import numpy as np
+#cimport numpy as np # TODO
 import cPickle as pickle
 
 from libc.stdlib cimport malloc, free
@@ -66,8 +66,8 @@ def downsample(g, factor=-1, ds_atlas=None, bint ignore_zero=True):
 
   if factor >= 0:
     print "Generating downsampled atlas ..."
-    # TODO: Accelerate this call my makeing cy_create a c function
-    ds_atlas = downsample_atlas.create(start=factor) # Create ds atlas and an atlas map for the original atlas
+    # TODO: Accelerate this call my makeing create a c function
+    ds_atlas = cy_downsample_atlas.create(start=factor) # Create ds atlas and an atlas map for the original atlas
   
   ds_atlas = ds_atlas.get_data() # don't care about other atlas data
 
