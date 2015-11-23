@@ -33,7 +33,8 @@ import os
 from packages.utils.setup import get_files
 
 # cpdef cy_create(char* roifn=os.path.join(os.environ["M2G_HOME"],"data","Atlas", 
-def cy_create(roifn=os.path.join(os.environ["M2G_HOME"],"data","Atlas", 
+# TODO: cdef
+def create(roifn=os.path.join(os.environ["M2G_HOME"],"data","Atlas",
   "MNI152_T1_1mm_brain.nii"), int start=2):
 
   """
@@ -47,7 +48,7 @@ def cy_create(roifn=os.path.join(os.environ["M2G_HOME"],"data","Atlas",
     get_files()
 
   img = nib.load(roifn)
-  base = img.get_data() # cdef np.ndarray base = img.get_data()
+  base = img.get_data() # TODO: cdef np.ndarray base = img.get_data()
   # cdef int* true_dim; true_dim[0] = base.shape[0]; true_dim[1] = base.shape[1]; true_dim[2] = base.shape[2]
   true_dim = base.shape
 
@@ -71,17 +72,13 @@ def cy_create(roifn=os.path.join(os.environ["M2G_HOME"],"data","Atlas",
   resized_base = np.zeros((xdim*step, ydim*step, zdim*step), dtype=int)
   resized_base[:base.shape[0], :base.shape[1], :base.shape[2]] = base
 
-  base[0] = resized_base[0]
-  base[1] = resized_base[1]
-  base[2] = resized_base[2]
-    
+  base = resized_base
   del resized_base
 
   print "Labeling new ..."
   # Create new matrix
   new = np.zeros_like(base, dtype=np.int) # poke my finger in the eye of bjarne
 
-  # TODO: Cythonize
   for z in xrange(start, base.shape[2]-start, step):
     for y in xrange(start, base.shape[1]-start, step):
       for x in xrange(start, base.shape[0]-start, step):

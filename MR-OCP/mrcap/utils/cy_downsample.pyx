@@ -62,7 +62,7 @@ def downsample(g, factor=-1, ds_atlas=None, bint ignore_zero=True):
 
   #ctypedef unsigned long long
   start = time()
-  edge_dict = defaultdict(int) # key=(v1, v2), value=weight
+  edge_dict = defaultdict(int) # key=(v1, v2), value=weight # TODO: c++: map Or vector of tuples
 
   if factor >= 0:
     print "Generating downsampled atlas ..."
@@ -72,7 +72,7 @@ def downsample(g, factor=-1, ds_atlas=None, bint ignore_zero=True):
   ds_atlas = ds_atlas.get_data() # don't care about other atlas data
 
   #spatial_map = [0]*(int(ds_atlas.max())+1) 
-  cdef long *spatial_map = <long *>malloc((long(ds_atlas.max())+1) * sizeof(long))
+  cdef long *spatial_map = <long *>malloc((long(ds_atlas.max())+1) * sizeof(long)) #TODO: Numpy/vector
   if not spatial_map:
     raise MemoryError()
 
@@ -81,8 +81,8 @@ def downsample(g, factor=-1, ds_atlas=None, bint ignore_zero=True):
   cdef long src, tgt
 
   # This takes O(m)
-  edges = g.es
-  vertices = g.vs
+  edges = g.es # TODO: Could type these but requires materialization :/
+  vertices = g.vs # TODO: This too
   for idx in xrange(len(edges)): # TODO: check xrange vs range
     src_spatial_id = long(vertices[edges[idx].source]["spatial_id"])
     tgt_spatial_id = long(vertices[edges[idx].target]["spatial_id"])
