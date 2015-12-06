@@ -94,6 +94,8 @@ def downsample(g, factor=-1, ds_atlas=None, ignore_zero=True):
       edge_dict[(src, tgt)] += e["weight"]
 
   del g # free me
+  print "Pregraph build in %.3f sec ... " % (time() - start)
+
   new_graph = igraph.Graph(n=len(spatial_map), directed=False) # len spatial_map is the # of vertices
   new_graph.vs["spatial_id"] = spatial_map
   

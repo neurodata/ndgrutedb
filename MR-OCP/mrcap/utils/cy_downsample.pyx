@@ -113,6 +113,9 @@ def downsample(g, factor=-1, ds_atlas=None, bint ignore_zero=True):
   py_spatial_map = []
   for idx in xrange((long(ds_atlas.max())+1)):
     py_spatial_map.append(spatial_map[idx])
+
+  print "Pre-graph build in %.3f sec ... " % (time() - start)
+
   new_graph = igraph.Graph(n=len(py_spatial_map), directed=False) # len spatial_map is the # of vertices
   new_graph.vs["spatial_id"] = py_spatial_map
 
