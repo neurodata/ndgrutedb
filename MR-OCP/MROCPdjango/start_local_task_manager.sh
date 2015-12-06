@@ -15,6 +15,7 @@
 
 # Coz I keep forgetting!
 
+# Start the webserver!
 sudo rabbitmq-server -detached
 sudo supervisord -c /etc/supervisord.conf
 #sudo rabbitmq-server
