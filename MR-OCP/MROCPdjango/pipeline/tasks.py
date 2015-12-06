@@ -52,6 +52,7 @@ def task_convert(upload_fn, convert_file_save_loc, input_format, output_format):
 
 @task(queue="mrocp")
 def task_mp_convert(upload_fns, convert_file_save_loc, input_format, output_format, to_email):
+  print "Entering mp_convert task ..."
   # Send begin job email
   content = "Hello,\n\n You requested the following files be converted:"
   for fn in upload_fns:
@@ -64,10 +65,16 @@ def task_mp_convert(upload_fns, convert_file_save_loc, input_format, output_form
   # End Email junk
 
   print "Entering multiprocess convert ..."
+
+  #"""
   funcs = map((lambda fn: task_convert.s(fn, convert_file_save_loc, input_format, output_format)), upload_fns)
   callback = group(funcs)()
   result = callback.get()
 
+  """
+  # For minimal testing
+  task_convert(upload_fns[0], convert_file_save_loc, input_format, output_format)
+  """
   dwnld_loc = get_download_path(convert_file_save_loc)
 
   err_msg = ""
