@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# downsample.py
-# Created by Disa Mhembere on 2014-07-08.
+# downsample.pyx
+# Created by Disa Mhembere on 2015-11-20.
 # Email: disa@jhu.edu
 
 import argparse
@@ -60,7 +60,6 @@ def downsample(g, factor=-1, ds_atlas=None, bint ignore_zero=True):
 					- The input graph downsampled to the scale of the input atlas.
   """
 
-  #ctypedef unsigned long long
   start = time()
   edge_dict = defaultdict(int) # key=(v1, v2), value=weight # TODO: c++: map Or vector of tuples
 

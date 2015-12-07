@@ -15,8 +15,8 @@
 # limitations under the License.
 #
 
-# create_atlas.py
-# Created by Disa Mhembere on 2014-04-10.
+# downsample_atlas.pyx
+# Created by Disa Mhembere on 2015-11-10.
 # Email: disa@jhu.edu
 # Copyright (c) 2014. All rights reserved.
 
