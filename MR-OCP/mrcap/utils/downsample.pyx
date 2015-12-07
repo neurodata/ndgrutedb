@@ -26,7 +26,7 @@ import igraph
 from mrcap.atlas import Atlas 
 from mrcap.utils import igraph_io
 from time import time
-import cy_downsample_atlas
+import downsample_atlas
 import nibabel as nib
 import zipfile
 from zindex import MortonXYZ
@@ -66,7 +66,7 @@ def downsample(g, factor=-1, ds_atlas=None, bint ignore_zero=True):
   if factor >= 0:
     print "Generating downsampled atlas ..."
     # TODO: Accelerate this call my makeing create a c function
-    ds_atlas = cy_downsample_atlas.create(start=factor) # Create ds atlas and an atlas map for the original atlas
+    ds_atlas = downsample_atlas.create(start=factor) # Create ds atlas and an atlas map for the original atlas
   
   ds_atlas = ds_atlas.get_data() # don't care about other atlas data
 
