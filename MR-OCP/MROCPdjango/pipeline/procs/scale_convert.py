@@ -26,7 +26,7 @@ import tempfile
 import os
 
 from pipeline.utils.util import get_genus, get_equiv_fn
-from mrcap.utils.downsample import downsample
+import downsample
 from mrcap.utils import igraph_io
 
 class TempGraph(object):
