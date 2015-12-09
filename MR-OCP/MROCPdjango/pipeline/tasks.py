@@ -168,9 +168,13 @@ def task_mp_scale(selected_files, dl_format, ds_factor, ATLASES, email=None, dwn
   
   else:
     # Create the list of task
+    #"""
     funcs = map((lambda fn: task_scale.s(fn, dl_format, ds_factor, ATLASES)), selected_files)
     callback = group(funcs)()
     result = callback.get()
+    """
+    task_scale(selected_files[0], dl_format, ds_factor, ATLASES)
+    """
 
     # Zip any results if present and Check for errors
     files_to_zip = {}
