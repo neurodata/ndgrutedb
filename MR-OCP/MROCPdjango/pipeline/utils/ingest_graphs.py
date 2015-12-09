@@ -71,7 +71,7 @@ def _ingest_files(fns, genus, tb_name):
       test_qry ="select g.mtime from %s.%s as g where g.filepath = \"%s\";" % (db_args["default"]["NAME"], tb_name, graph_fn)
 
       if cursor.execute(test_qry): # Means graph already in DB
-        if cursor.fetchall()[0][0] == os.stat(graph_fn).st_mtime: # Means graphs hasn't changed since ingest
+        if cursor.fetchall()[0][0] == mtime: # Means graphs hasn't changed since ingest
           g_changed = False
           print "Ignoring %s ..." % graph_fn
         else:
