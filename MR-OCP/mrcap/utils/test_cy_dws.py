@@ -31,6 +31,6 @@ print "Running vanilla python downsample ...."
 dsg = mrcap.utils.downsample.downsample(g, 2)
 
 print "Running accelerated cython downsample ...."
-dsg2 = downsample(g, 2)
+dsg2 = downsample.downsampl(g, 2)
 
 assert dsg.isomorphic(dsg2), "Graphs, cython and python not equal!"
