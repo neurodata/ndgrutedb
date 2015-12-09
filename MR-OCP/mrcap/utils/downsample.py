@@ -23,7 +23,6 @@ from glob import glob
 from collections import defaultdict
 import os, sys
 import igraph
-from mrcap.atlas import Atlas 
 from mrcap.utils import igraph_io
 from time import time
 import downsample_atlas
