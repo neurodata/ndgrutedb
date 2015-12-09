@@ -23,6 +23,7 @@ from glob import glob
 from collections import defaultdict
 import os, sys
 import igraph
+sys.path.append(os.path.abspath("../.."))
 from mrcap.utils import igraph_io
 from time import time
 import downsample_atlas
