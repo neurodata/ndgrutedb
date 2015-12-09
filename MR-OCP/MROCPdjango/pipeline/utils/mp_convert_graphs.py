@@ -47,6 +47,23 @@ def read_and_convert(inouttup):
 def get_outname(inname, outdir, outfmt):
   return os.path.join(outdir, os.path.splitext(os.path.basename(inname))[0]+"."+outfmt)
 
+
+def clean(parent_dir, child_dir, parent_fmt="graphml"):
+  """
+  Clean up (rm) files that no longer have a parent file
+  @param parent_dir: The parent dir (generally graphml format)
+  @param child_dir: The child dir
+  """
+
+  child_contents = glob(os.path.join(child_dir, "*"))
+  for fn in child_contents:
+    parent = get_outname(fn, parent_dir, parent_fmt)
+    if not os.path.exists(parent):
+      print "Parent doesn't exist, deleting '{}'".format(fn)
+      os.remove(fn)
+
+  print "Cleaning complete!"
+
 def run_on_dir(indir, infmt, outdir, outfmt, num_procs):
   if not os.path.isdir(outdir):
     print "Making the output directory"
@@ -73,14 +90,19 @@ def run_on_dir(indir, infmt, outdir, outfmt, num_procs):
 
 def main():
   parser = argparse.ArgumentParser(description="Convert graph files from one format to another")
-  parser.add_argument("indir", action="store", help="Input directory")
-  parser.add_argument("infmt", action="store", help="Input format")
-  parser.add_argument("outdir", action="store", help="Output directory")
-  parser.add_argument("outfmt", action="store", help="Output format")
+  parser.add_argument("indir", action="store", help="Input (parent) directory")
+  parser.add_argument("infmt", action="store", help="Input (parent) format")
+  parser.add_argument("outdir", action="store", help="Output (child) directory")
+  parser.add_argument("outfmt", action="store", help="Output (child) format")
+  parser.add_argument("--clean_only", "-c", action="store_true", help="Output format")
   parser.add_argument("num_procs", action="store", type=int, help="The number of processing units")
   result = parser.parse_args()
 
-  run_on_dir(result.indir, result.infmt, result.outdir, result.outfmt, result.num_procs)
+  if (result.clean_only):
+    clean(result.indir, result.outdir, result.infmt)
+  else:
+    run_on_dir(result.indir, result.infmt, result.outdir, result.outfmt, result.num_procs)
+    clean(result.indir, result.outdir, result.infmt) # Always clean after I ingest!
 
 if __name__ == "__main__":
   main()
