@@ -23,10 +23,11 @@
 
 import argparse
 import tempfile
-import os
+import os, sys
 
+#sys.path.append(os.path.abspath("../.."))
 from pipeline.utils.util import get_genus, get_equiv_fn
-import downsample
+from downsample import downsample
 from mrcap.utils import igraph_io
 
 class TempGraph(object):
