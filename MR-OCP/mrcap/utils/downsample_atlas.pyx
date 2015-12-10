@@ -25,11 +25,13 @@
 #   3x3x3 region with a new label then masking
 # using a base atlas
 
-import nibabel as nib
-import numpy as np # TODO: cimport
+import os, sys
 from math import ceil
 from time import time
-import os
+
+import nibabel as nib
+import numpy as np # TODO: cimport
+
 from packages.utils.setup import get_files
 
 # cpdef cy_create(char* roifn=os.path.join(os.environ["M2G_HOME"],"data","Atlas", 
