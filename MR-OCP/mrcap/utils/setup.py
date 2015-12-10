@@ -13,7 +13,7 @@ setup(
 """
 
 ext_modules=[
-      Extension("downsample", ["downsample.pyx"]),
+      Extension("downsample", ["downsample.pyx"], language="c++"),
       Extension("downsample_atlas", ["downsample_atlas.pyx"]),
 ]
 
