@@ -207,10 +207,9 @@ LOGGING = {
 # 7.'tri'|'triangle' is the triangle count
 # 8.'fg'|'fibergraph' is a fibergraph built by gengraph.py
 # 9.'apl'|'avePathLen' is the avergae path length
-# 10. 'svd'|'singValDecomp' is the single value decomposition embedding
 
-EQUIV_NP_ARRAYS = {'cc':'clustCoeff', 'deg':'degree', 'eig':'eigen', 'apl':'avePathLen',
-                    'ss1': 'scanStat1','ss2': 'scanStat2','tri':'triangle','svd':'singValDecomp'}
+EQUIV_NP_ARRAYS = {'cc':'clustCoeff', 'deg':'degree', 'eig':'eigen',
+                    'ss1': 'scanStat1'}
 
 VALID_FILE_TYPES = EQUIV_NP_ARRAYS
 VALID_FILE_TYPES['mad'] = 'maxAvgDeg'
