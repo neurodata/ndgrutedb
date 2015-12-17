@@ -23,7 +23,7 @@ import argparse
 from computation.utils.file_util import loadAnyMat
 import scipy.io as sio
 import numpy as np
-from mrcap.zindex import MortonXYZ
+from zindex import MortonXYZ
 import os
 from glob import glob
 
