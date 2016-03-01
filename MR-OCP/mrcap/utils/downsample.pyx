@@ -29,6 +29,7 @@ import numpy as np
 import igraph
 import nibabel as nib
 
+sys.path.append(os.path.abspath("../../../"))
 from zindex import MortonXYZ
 import downsample_atlas
 #cimport numpy as np # TODO
