@@ -131,10 +131,19 @@ def task_mp_invariant_compute(invariants, graph_fns, invariants_path,
     sendJobFailureEmail(to_email, err_msg, dwnld_loc)
 
 @task(queue="mrocp")
-def task_runc4(dti_path, mprage_path, bvalue_path, bvector_path, graph_size, atlas, email):
+def task_runc4(dti_path, mprage_path, bvalue_path, bvector_path,
+    atlas_path, mask_path, labels_path, email):
   print "Entering c4 task ..."
+  data_dir = os.path.dirname(os.path.abspath(dti_path))
+  print "Making output dir '{}'...".format(data_dir)
+  dwnld_loc = get_download_path(data_dir)
+
   from pipeline.procs.runc4 import runc4
-  runc4(dti_path, mprage_path, bvalue_path, bvector_path, graph_size, atlas, email)
+  runc4(dti_path, mprage_path, bvalue_path, bvector_path, atlas_path,
+      mask_path, labels_path, data_dir)
+
+  print "Emailing job completion to '{}' with dwnld_loc '{}'...".format(email, dwnld_loc)
+  sendJobCompleteEmail(email, dwnld_loc)
   print "Exiting c4 task ..."
 
 @task(queue="mrocp")

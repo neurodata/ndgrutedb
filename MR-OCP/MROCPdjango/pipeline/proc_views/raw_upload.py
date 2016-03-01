@@ -47,22 +47,45 @@ def raw_upload(request):
       mprage = form.cleaned_data["mprage"]
       bvalue = form.cleaned_data["bvalue"]
       bvector = form.cleaned_data["bvector"]
+      atlas = form.cleaned_data["atlas"]
+      mask = form.cleaned_data["mask"]
+      labels = form.cleaned_data["labels"]
 
       # Save all derivatives
-      for _file in dti, mprage, bvalue, bvector:
-        saveFileToDisk(_file, os.path.join(data_dir, _file.name))
-
       ru_model = RawUploadModel()
+      for _file in dti, mprage, bvalue, bvector, atlas, mask, labels:
+        if (_file):
+          saveFileToDisk(_file, os.path.join(data_dir, _file.name))
+
       ru_model.dtipath = os.path.join(data_dir, dti.name)
       ru_model.mpragepath = os.path.join(data_dir, mprage.name)
-      ru_model.atlas = form.cleaned_data["atlas"]
-      ru_model.graphsize = "big" if form.cleaned_data["graphsize"] == True else "small"
+      ru_model.bvectorpath = os.path.join(data_dir, bvector.name)
+      ru_model.bvaluepath = os.path.join(data_dir, bvalue.name)
+
+      atlas_path = mask_path = labels_path = ""
+
+      if (atlas):
+        atlas_path = ru_model.atlaspath = os.path.join(data_dir, atlas.name)
+      else:
+        atlas_path = os.path.join(settings.C4_DEFAULT_MR_ATLAS_DIR,
+        "MNI152_T1_1mm.nii.gz")
+      if (mask):
+        mask_path = ru_model.maskpath = os.path.join(data_dir, mask.name)
+      else:
+        mask_path = os.path.join(settings.C4_DEFAULT_MR_ATLAS_DIR,
+            "MNI152_T1_1mm_brain_mask.nii.gz")
+      if (labels):
+        labels_path = ru_model.labelspath = os.path.join(data_dir, labels.name)
+      else:
+        labels_path = os.path.join(settings.C4_DEFAULT_MR_PARC_DIR,
+            "desikan.nii.gz")
+
       ru_model.email = form.cleaned_data["email"] 
       ru_model.save() # Sync to Db
 
       task_runc4.delay(ru_model.dtipath, ru_model.mpragepath,
-          os.path.join(data_dir, bvalue.name), os.path.join(data_dir, bvector.name), 
-          form.cleaned_data["graphsize"], ru_model.atlas, form.cleaned_data["email"])
+          os.path.join(data_dir, bvalue.name), os.path.join(data_dir, bvector.name),
+          atlas_path, mask_path, labels_path, form.cleaned_data["email"])
 
       sendEmail(form.cleaned_data["email"], "MR Images to graphs job started", 
               "Hello,\n\nYour job launched successfully. You will receive another email upon completion.\n\n")
