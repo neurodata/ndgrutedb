@@ -209,17 +209,17 @@ class RawUploadForm(forms.Form):
   @cvar atlas: The atlas with which to build the graph
   """
 
+  #change_form_template = 'progressbarupload/change_form.html'
+  #add_form_template = 'progressbarupload/change_form.html'
+
   dti = forms.FileField(required=True, label="DTI")
   mprage  = forms.FileField(required=True, label="MPRAGE")
   bvalue =  forms.FileField(required=True)
   bvector = forms.FileField(required=True)
 
-  graphsize = forms.ChoiceField(required=True, \
-      widget=Select, choices=((True,"Big"), (False,"Small")), label="Graph size")
-
-  atlas = forms.ChoiceField(required=True, \
-      widget=Select, choices=(("MNI","MNI"),))
+  atlas = forms.FileField(required=False)
+  mask = forms.FileField(required=False)
+  labels = forms.FileField(required=False)
 
   email = forms.EmailField(widget=EmailInput(attrs={"class":"tb", "size":40}), 
       required=True, error_messages={"required":"You must supply an email address"})
-
