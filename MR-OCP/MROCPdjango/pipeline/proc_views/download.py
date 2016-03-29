@@ -36,7 +36,7 @@ from pipeline.models import GraphDownloadModel
 from pipeline.forms import DownloadGraphsForm
 from pipeline.forms import DownloadQueryForm
 from pipeline.utils.util import sendEmail
-from pipeline.tasks import task_scale
+from pipeline.tasks import task_mp_scale
 from pipeline.utils.util import get_download_path
 
 def download(request):
@@ -125,9 +125,8 @@ def download(request):
           sendEmail(form.cleaned_data["Email"], "Job launch notification",
                   "Your download request was received. You will receive an email when it completes.\n\n")
 
-          # Testing only
-          task_scale.delay(selected_files, dl_format, ds_factor, ATLASES, form.cleaned_data["Email"], 
-          dwnld_loc, os.path.join(data_dir, "archive.zip")) # Testing only
+          task_mp_scale.delay(selected_files, dl_format, ds_factor, ATLASES, form.cleaned_data["Email"],
+          dwnld_loc, os.path.join(data_dir, "archive.zip"))
 
           request.session['success_msg'] = \
 """

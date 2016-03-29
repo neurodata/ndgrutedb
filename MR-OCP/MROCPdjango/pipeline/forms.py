@@ -25,24 +25,21 @@
 
 from django import forms
 from django.forms.fields import MultipleChoiceField, BooleanField, ChoiceField
-from django.forms.widgets import RadioSelect, CheckboxSelectMultiple, Select, SelectMultiple, TextInput, EmailInput
-
-#
-#class LoginForm(forms.Form):
-#  username = forms.CharField(required = True, error_messages={'required': 'You must enter a username'})
-#  password = forms.PasswordInput()
-#
-#class RegisterForm(forms.Form):
-#  username = forms.CharField(required = True, error_messages={'required': 'You must enter a username'})
-#  email = forms.EmailField(required = True, error_messages={'required': 'You must enter an email address'})
-#  confirmEmail = forms.EmailField(required = True, error_messages={'required': 'You must enter an email address'})
-#  password = forms.PasswordInput()
-#  confirmPassword = forms.PasswordInput()
+from django.forms.widgets import RadioSelect, CheckboxSelectMultiple, Select
+from django.forms.widgets import SelectMultiple, TextInput, EmailInput
 
 INVARIANT_CHOICES = (('ss1', 'Scan Statistic 1',), ('tri', 'Triangle Count',), \
 ('cc', 'Clustering co-efficient',), ('mad', 'Maximum Average Degree',) \
 ,('deg', 'Vertex Degree',), ('eig', 'Top-k Eigenvalues and Eigenvectors',))
 
+IN_FORMATS = [('graphml', 'graphml'), ('ncol','ncol'), ('edgelist', 'edgelist'),
+        ('lgl','lgl'),('pajek', 'pajek'), ('graphdb', 'graphdb'),
+        ('npy', 'numpy format (npy)'), ('mat', 'MATLAB format (mat)'),
+        ('attredge', 'Attributed edgelist')]
+
+OUT_FORMATS = IN_FORMATS[:-4]
+OUT_FORMATS.extend([('dot', 'dot'), ('gml', 'gml'), ('leda', 'leda'),
+        ('mm', 'Market Matrix'), ('mat', 'MATLAB')])
 
 class LogoutForm(forms.Form):
   pass
@@ -50,7 +47,6 @@ class LogoutForm(forms.Form):
 class PasswordResetForm(forms.Form):
   username = forms.CharField(required = True, error_messages={'required': 'You must enter a username'})
   email = forms.EmailField(required = True, error_messages={'required': 'You must enter an email address'})
-
 
 class BuildGraphForm(forms.Form):
   '''
@@ -118,14 +114,6 @@ class BuildGraphForm(forms.Form):
     super(BuildGraphForm, self).__init__(*args, **kwargs)
     self.fields["Project_Type"].widget.attrs["disabled"] = "disabled" # radio / checkbox
   """
-
-
-IN_FORMATS = [('graphml', 'graphml'), ('ncol','ncol'), ('edgelist', 'edgelist'),
-        ('lgl','lgl'),('pajek', 'pajek'), ('graphdb', 'graphdb'),
-        ('npy', 'numpy format (npy)'), ('mat', 'MATLAB format (mat)'), 
-        ('attredge', 'Attributed edgelist')]
-OUT_FORMATS = IN_FORMATS[:-4]
-OUT_FORMATS.extend([('dot', 'dot'), ('gml', 'gml'), ('leda', 'leda')])
 
 class ConvertForm(forms.Form):
   '''
@@ -221,17 +209,17 @@ class RawUploadForm(forms.Form):
   @cvar atlas: The atlas with which to build the graph
   """
 
+  #change_form_template = 'progressbarupload/change_form.html'
+  #add_form_template = 'progressbarupload/change_form.html'
+
   dti = forms.FileField(required=True, label="DTI")
   mprage  = forms.FileField(required=True, label="MPRAGE")
   bvalue =  forms.FileField(required=True)
   bvector = forms.FileField(required=True)
 
-  graphsize = forms.ChoiceField(required=True, \
-      widget=Select, choices=((True,"Big"), (False,"Small")), label="Graph size")
-
-  atlas = forms.ChoiceField(required=True, \
-      widget=Select, choices=(("MNI","MNI"),))
+  atlas = forms.FileField(required=False)
+  mask = forms.FileField(required=False)
+  labels = forms.FileField(required=False)
 
   email = forms.EmailField(widget=EmailInput(attrs={"class":"tb", "size":40}), 
       required=True, error_messages={"required":"You must supply an email address"})
-

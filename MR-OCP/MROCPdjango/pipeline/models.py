@@ -93,12 +93,16 @@ class GraphDownloadModel(models.Model):
   url = models.URLField(max_length=2048, verbose_name="Download url")
 
 class RawUploadModel(models.Model):
-  mpragepath = models.CharField(max_length=255, null=False)
   dtipath = models.CharField(max_length=255, null=False)
-  atlas = models.CharField(max_length=255, null=False)
-  graphsize = models.CharField(max_length=8, null=False)
+  mpragepath = models.CharField(max_length=255, null=False)
+  bvectorpath = models.CharField(max_length=255, null=False)
+  bvaluepath = models.CharField(max_length=255, null=False)
+  atlaspath = models.CharField(max_length=255, null=False)
+  maskpath = models.CharField(max_length=255, null=False)
+  labelspath = models.CharField(max_length=255, null=False)
   email = models.EmailField(null=False)
   
 admin.site.register(BuildGraphModel)
 admin.site.register(OwnedProjects)
 admin.site.register(SharingTokens)
+#admin.site.register(RawUploadModel, UploadFileModelAdmin)

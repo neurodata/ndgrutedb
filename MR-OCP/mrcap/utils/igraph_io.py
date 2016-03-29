@@ -25,10 +25,12 @@ import tempfile
 import os
 from igraph import read as igraph_read
 from graphml_headers import read_graphml_headers
+import numpy as np
+import scipy.io as sio
 
 def write_mm(g, fn):
   """
-  Write to MM format given a graph
+  Write to Market Matrix (mm) format given a graph
   @param g: An igraph graph
   @param fn: The output filename
   """
@@ -43,6 +45,23 @@ def write_mm(g, fn):
       f.write("%d %d 1\n" % (e.source, e.target))
 
   f.close()
+
+def write_mat(g, fn):
+  """
+  Write to MATLAB format struct given a graph
+  @param g: An igraph graph
+  @param fn: The output filename
+  """
+
+  try:
+    print "Attempting weighted adjacency matrix ..."
+    mat = np.matrix(g.get_adjacency(attribute="weight").data, dtype=np.int64)
+  except:
+    print "Falling back on unweighted adjacency matrix ..."
+    mat = np.matrix(g.get_adjacency().data, dtype=np.int64)
+
+  print "Saving weighted adjacency matrix ..."
+  sio.savemat(fn, {"data" : mat})
 
 def unzip_file(fn):
   start = time()

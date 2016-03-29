@@ -56,7 +56,6 @@ def create(roifn=os.path.join(os.environ["M2G_HOME"],"data","Atlas",
   """
 
   start_time = time()
-  atlmap = None
   print "Loading rois as base ..."
   if not os.path.exists(roifn):
     get_files()

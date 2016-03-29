@@ -100,11 +100,14 @@ def get_files(force):
 
 
 def compile_cython():
-    os.chdir(os.path.join(os.environ['M2G_HOME'], "/MR-OCP/mrcap/"))
-    ret = call(["python", "setup.py", "install"])
-    assert not ret, ("Failed to run setup.py in 'mrcap' directory." +
-                     "Perhaps running this script with 'sudo' will help")
+  os.chdir(os.path.join(os.environ['M2G_HOME'],"MR-OCP/mrcap/"))
+  ret = call(["python", "setup.py", "install"])
+  assert not ret, "Failed to run setup.py in 'mrcap' directory. Perhaps running this script with 'sudo' will help"
 
+  # Compile utils cython modules
+  os.chdir(os.path.join(os.environ['M2G_HOME'],"MR-OCP/mrcap/utils/"))
+  ret = call(["python", "setup.py", "install"])
+  assert not ret, "Failed to run setup.py in 'mrca/utilsp' directory. Perhaps running this script with 'sudo' will help"
 
 def main():
     """

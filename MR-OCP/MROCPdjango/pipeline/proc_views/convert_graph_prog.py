@@ -25,21 +25,15 @@ from time import strftime, localtime
 
 from django.template import RequestContext
 from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
 from django.conf import settings
-from pipeline.utils.util import get_script_prefix
 
-from pipeline.forms import ConvertForm
 from pipeline.utils.zipper import unzip
-from computation.utils import convertTo
 from pipeline.utils.util import writeBodyToDisk, saveFileToDisk
-from pipeline.tasks import task_convert
+from pipeline.tasks import task_mp_convert
 from django.conf import settings
 from pipeline.utils.util import get_download_path
 from convert_graph import getworkdirs
-from pipeline.utils.util import sendJobBeginEmail, check_email
-from convert_graph import getworkdirs
+from pipeline.utils.util import check_email
 
 # webargs is {email}{in_graph_format}/{out_graph_format}/[l]
 def convert_graph_prog(request, webargs):
@@ -79,8 +73,8 @@ def convert_graph_prog(request, webargs):
       os.remove(uploaded_files[0])
       uploaded_files = glob(os.path.join(save_dir, "*")) # get the uploaded file names
 
-    task_convert.delay(settings.MEDIA_ROOT, uploaded_files, convert_file_save_loc,
-    in_graph_format, out_graph_format, to_email)
+    task_mp_convert.delay(uploaded_files, convert_file_save_loc, in_graph_format,
+        out_graph_format, to_email)
 
     if link_only:
       return HttpResponse(get_download_path(convert_file_save_loc))

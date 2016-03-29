@@ -21,41 +21,23 @@
 # Email: disa@jhu.edu
 # Copyright (c) 2015. All rights reserved.
 
-import argparse
-import pickle
 import os
 
-from pipeline.utils.util import sendJobFailureEmail, sendJobCompleteEmail
 from run_invariants import run_invariants
-from pipeline.utils.util import get_download_path
 
-def invariant_compute(invariants, graph_fn, invariants_path, data_dir, in_graph_format, to_email):
-  """
-  if isinstance(session, str) or isinstance(session, unicode):
-    f = open(session, "rb")
-    session = pickle.load(f)
-    f.close()
-  """
-  dwnld_loc = get_download_path(data_dir)
-
+def invariant_compute(invariants, graph_fn, invariants_path, in_graph_format):
   try:
     invariant_fns = run_invariants(invariants, graph_fn,
                 invariants_path, 
                 graph_format=in_graph_format)
 
     if isinstance(invariant_fns, str):
-      raise Exception
+      raise Exception(invariant_fns)
     else:
       print 'Invariants for annoymous project %s complete...' % graph_fn
 
   except Exception, msg:
-    msg = """
-Hello,\n\nYour most recent job for '%s' failed possibly because:\n- '%s'.
-\n\n"You may have some partially completed data at {}.
-\nPlease check these and try again.\n\n
-""" % (os.path.basename(graph_fn), msg)
+    msg = "[ERROR]: - File: '%s'\n failure: - '%s'.\n\n" % (os.path.basename(graph_fn), msg)
+    return msg
 
-    sendJobFailureEmail(to_email, msg, dwnld_loc)
-    return
-  # Email user of job finished
-  sendJobCompleteEmail(to_email, dwnld_loc)
+  return 0 # C-style return with 0 as success

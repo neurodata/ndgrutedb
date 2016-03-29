@@ -20,7 +20,6 @@
 # Email: disa@jhu.edu
 
 from zindex import MortonXYZ
-import scipy.io as sio
 import nibabel as nib
 import os
 

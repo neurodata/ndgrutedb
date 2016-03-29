@@ -29,6 +29,7 @@ import igraph
 from computation.utils.csc_to_igraph import csc_to_igraph
 from computation.utils.file_util import loadAnyMat
 from computation.utils.attredge_adapter import attredge_to_igraph
+from mrcap.utils import igraph_io
 
 def convert_graph(gfn, informat, save_dir, *outformats):
   """
@@ -42,6 +43,7 @@ def convert_graph(gfn, informat, save_dir, *outformats):
   save_dir - the directory where we save result to
   outformat - a list of output formats
   """
+
   try:
     if informat in ["graphml", "ncol", "edgelist", "lgl", "pajek", "graphdb"]:
       g = igraph.read(gfn, None)
@@ -54,10 +56,10 @@ def convert_graph(gfn, informat, save_dir, *outformats):
     else:
       err_msg = "[ERROR]: Unknown format '%s'. Please check format and retry!" % informat
       print err_msg
-      return (None, err_msg)
+      return (os.path.basename(gfn), err_msg)
   except Exception, err_msg:
     print err_msg
-    return (None, "[ERROR]: "+str(err_msg))
+    return (os.path.basename(gfn), "[ERROR]: "+str(err_msg))
 
   out_err_msg = ""
   fn = ""
@@ -66,6 +68,13 @@ def convert_graph(gfn, informat, save_dir, *outformats):
       fn = os.path.join(save_dir, os.path.splitext(os.path.basename(gfn))[0]+"."+fmt)
       print "Writing converted file %s ..." % fn
       g.write(fn, format=fmt)
+    elif fmt == "mm":
+      fn = os.path.join(save_dir, os.path.splitext(os.path.basename(gfn))[0]+".mm")
+      igraph_io.write_mm(g, fn)
+      print "Writing converted file %s ..." % fn
+    elif fmt == "mat":
+      fn = os.path.join(save_dir, os.path.splitext(os.path.basename(gfn))[0]+".mat")
+      igraph_io.write_mat(g, fn)
     else:
       out_err_msg += "File conversion format '%s' unknown and omitted ...\n" % fmt
 

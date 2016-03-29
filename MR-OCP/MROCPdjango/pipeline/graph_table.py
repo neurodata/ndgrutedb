@@ -19,7 +19,7 @@
 # Email: disa@jhu.edu
 
 import django_tables2 as tables
-from models import GraphDownloadModel
+from pipeline.models import GraphDownloadModel
 import os
 from django.utils.safestring import mark_safe
 from urlparse import urlparse
