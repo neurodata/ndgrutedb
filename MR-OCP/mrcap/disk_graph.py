@@ -64,10 +64,10 @@ class DiskGraph(object):
     return self.graph_path
   
   def __repr__(self):
-    return "Graph path: {}\nDataset:{}\nAtlas path: {}\nRaw path: {}\nDeriv path: {}"\
+    return "Graph path: {}\nDataset:{}\nAtlas: {}\nRaw path: {}\nDeriv path: {}"\
         .format(self.get_graph_path(), self.get_dataset(),
             self.get_atlas(), self.get_raw_path(), self.get_deriv_path())
-# test #
+
 
 def test():
   try:
