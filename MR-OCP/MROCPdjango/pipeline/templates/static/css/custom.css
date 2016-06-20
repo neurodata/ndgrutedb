@@ -20,9 +20,9 @@
 */
 
 .black {
-  background-color: black;
+  background-color: Azure;
   font-family: Helvetica, Arial, sans-serif;
-  color: white;
+  color: black;
   max-width: 1000px;
   margin: 0 auto;
   line-height: 2;
@@ -37,25 +37,28 @@ ul {
 
 /* So we can see the text on textareas, emails, select*/
 input[type="text"], textarea {
-  background-color : gray; 
-  color: white;
+  background-color : white; 
+  color: black;
   border-radius: 5px;
 }
 
 input[type="email"], textarea {
-  background-color : gray; 
-  color: white;
+  background-color : white; 
+  color: black;
   border-radius: 5px;
 }
 
 option {
-    background-color: gray;
+    background-color: white;
 }
 
 /*Button*/
-
+code {
+    color:DarkViolet;
+}
 .button {
-  color: #444;
+  color: black;
+  background-color: white;
   border: 1px solid #3da7f5;
   font-weight: bold;
   border-radius: 5px;
@@ -63,43 +66,43 @@ option {
 
 
 .ocp-nav {
-  background-color:rgba(0, 0, 0, 0.6);
+  background-color:#E0F8FF;
   border: 0;
   /*min-width: 900px;*/
 }
 
 #ocp-menubar ul li a { 
-  color: red;
+  color: DodgerBlue;
 }
 
 #ocp-menubar ul li a:hover { 
-  color: white;
+  color: MediumBlue;
 }
 
 #ocp-menubar ul li a:focus{ 
-  background-color:rgba(0, 0, 0, 0.6);
-  color: white;
+  background-color:Azure;
+  color: MediumBlue;
 }
 
 /* TODO: Figure out why the loss of focus makes background white */
 #ocp-menubar ul li a:not(:focus){
-  background-color:rgba(0, 0, 0, 0.6);
+  background-color:#E0F8FF;
 }
 
 #ocp-dropdown li a:hover { 
-  background-color:rgba(0, 0, 0, 0.6);
-  opacity: 
-  color: white;
+  background-color:#E0F8FF;
+  color: Azure;
 }
 
 /* Make the li separators red */
 #ocp-divider {
-  background-color: red;
+  background-color: lightblue;
 }
 
 /* So the ocp header banner has no effect when hovered */
 #header_id a:hover {
- text-decoration:none;
+ text-decoration: none;
+ background-color: #E0F8FF;
 }
 
 /* Center the navbar on the page*/
