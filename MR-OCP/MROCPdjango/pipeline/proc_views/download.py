@@ -41,7 +41,8 @@ from pipeline.utils.util import get_download_path
 
 def download(request):
   MAX_NUM_GRAPH_DLS = 1
-  ATLASES = {"desikan": os.path.join(settings.ATLAS_DIR, "desikan_atlas.nii") ,
+  ATLASES = {"desikan": os.path.join(settings.ATLAS_DIR,
+      "MNI152_T1_1mm_desikan_adjusted.nii") ,
               "slab": os.path.join(settings.ATLAS_DIR, "slab_atlas.nii")}
 
   if request.method == "POST":
@@ -130,10 +131,10 @@ def download(request):
 
           request.session['success_msg'] = \
 """
-Your job successfully launched. You should receive an email when your job begins and another 
-one when it completes.<br/> The process may take several hours (dependent on graph size). 
+Your job successfully launched. You should receive an email when your job begins and another
+one when it completes.<br/> The process may take several hours (dependent on graph size).
 If your job fails you will receive an email notification as well.<br/>
-If you do not see an email in your <i>Inbox</i> check the <i>Spam</i> folder and add 
+If you do not see an email in your <i>Inbox</i> check the <i>Spam</i> folder and add
 <code>jhmrocp@cs.jhu.edu</code> to your safe list.
 """
           return HttpResponseRedirect(get_script_prefix()+'success')
