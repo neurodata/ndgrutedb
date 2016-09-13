@@ -13,7 +13,7 @@ table.dark +  ul.pagination {
 table.dark a:link,
 table.dark a:visited,
 table.dark + ul.pagination > li > a {
-    color: #00ffff;
+    color: CornflowerBlue;
     text-decoration: none;
     font-weight: bold;
 }
@@ -49,7 +49,7 @@ table.dark thead td {
 table.dark thead th > a:link,
 table.dark thead th > a:visited {
     /*color: #666;*/
-    color:red;
+    color:DarkSlateBlue;
 }
 
 table.dark thead th.orderable > a {
@@ -64,11 +64,11 @@ table.dark thead th.orderable.desc > a {
 }
 
 table.dark tr.odd {
-    background-color: gray;
+    background-color: white;
 }
 
 table.dark tr.even {
-    background-color: black;
+    background-color: lightgray;
 }
 
 table.dark + ul.pagination {
