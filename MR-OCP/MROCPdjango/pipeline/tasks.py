@@ -103,7 +103,7 @@ def task_invariant_compute(invariants, graph_fn, invariants_path, in_graph_forma
   return res
 
 @task(queue="mrocp")
-def task_mp_invariant_compute(invariants, graph_fns, invariants_path, 
+def task_mp_invariant_compute(invariants, graph_fns, invariants_path,
     data_dir, in_graph_format, to_email):
   print "Entering multiprocess invariant compute task ..."
 
@@ -138,11 +138,11 @@ def task_runc4(dti_path, mprage_path, bvalue_path, bvector_path, graph_size, atl
   print "Exiting c4 task ..."
 
 @task(queue="mrocp")
-def task_build(derivatives, graph_loc, graphsize, invariants, 
+def task_build(derivatives, graph_loc, graphsize, invariants,
                         proj_dir, to_email):
   print "Entering build task ..."
-  from pipeline.procs.process_ip_data import process_input_data 
-  process_input_data(derivatives, graph_loc, graphsize, invariants, 
+  from pipeline.procs.process_ip_data import process_input_data
+  process_input_data(derivatives, graph_loc, graphsize, invariants,
                         proj_dir, to_email)
   print "Exiting build task ..."
 
@@ -165,7 +165,7 @@ def task_mp_scale(selected_files, dl_format, ds_factor, ATLASES, email=None, dwn
     zipfiles(selected_files, use_genus=True, zip_out_fn=zip_fn)
   elif get_genus(selected_files[0]) == "human" and dl_format == "ncol" and ds_factor == 0:
     zipfiles(map(get_equiv_fn, selected_files), use_genus=True, zip_out_fn=zip_fn)
-  
+
   else:
     # Create the list of task
     #"""
