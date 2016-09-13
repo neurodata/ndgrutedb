@@ -29,6 +29,7 @@ import os, sys
 from pipeline.utils.util import get_genus, get_equiv_fn
 from downsample import downsample
 from mrcap.utils import igraph_io
+import nibabel as nib
 
 class TempGraph(object):
   """
@@ -51,7 +52,7 @@ class TempGraph(object):
 
   def _add_error(self, msg):
     self.err_msg = msg
-  
+
   def get_error(self):
     return self.err_msg
 
@@ -88,14 +89,14 @@ def scale_convert(fn, dl_format, ds_factor, ATLASES):
         g = downsample(igraph_io.read_arbitrary(fn, "graphml"), ds_factor)
         print "downsample complete"
       else: # Or downsample by an atlas
-        g = downsample(igraph_io.read_arbitrary(fn, "graphml"), atlas=nib_load(ATLASES[ds_factor]))
+        g = downsample(igraph_io.read_arbitrary(fn, "graphml"), ds_atlas=nib.load(ATLASES[ds_factor]))
     else: # No downsample at all
       fn = get_equiv_fn(fn)
       g = igraph_io.read_arbitrary(fn, os.path.splitext(fn)[1][1:])
-    
+
     # We are able to read the i/p fn so create rest of object
     ret._make_fn()
-    
+
     # Write to `some` format
     if dl_format == "mm":
       igraph_io.write_mm(g, ret.get_temp_fn())
