@@ -212,14 +212,10 @@ class RawUploadForm(forms.Form):
   #change_form_template = 'progressbarupload/change_form.html'
   #add_form_template = 'progressbarupload/change_form.html'
 
-  dti = forms.FileField(required=True, label="DTI")
-  mprage  = forms.FileField(required=True, label="MPRAGE")
-  bvalue =  forms.FileField(required=True)
-  bvector = forms.FileField(required=True)
-
-  atlas = forms.FileField(required=False)
-  mask = forms.FileField(required=False)
-  labels = forms.FileField(required=False)
+  dwi = forms.FileField(required=True, label="Diffusion Weighted Image (DWI)")
+  t1w  = forms.FileField(required=True, label="Structural Image (T1W/MPRAGE)")
+  bval =  forms.FileField(required=True)
+  bvec = forms.FileField(required=True)
 
   email = forms.EmailField(widget=EmailInput(attrs={"class":"tb", "size":40}), 
       required=True, error_messages={"required":"You must supply an email address"})
