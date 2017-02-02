@@ -103,7 +103,7 @@ def task_invariant_compute(invariants, graph_fn, invariants_path, in_graph_forma
   return res
 
 @task(queue="mrocp")
-def task_mp_invariant_compute(invariants, graph_fns, invariants_path, 
+def task_mp_invariant_compute(invariants, graph_fns, invariants_path,
     data_dir, in_graph_format, to_email):
   print "Entering multiprocess invariant compute task ..."
 
@@ -131,27 +131,35 @@ def task_mp_invariant_compute(invariants, graph_fns, invariants_path,
     sendJobFailureEmail(to_email, err_msg, dwnld_loc)
 
 @task(queue="mrocp")
-def task_runc4(dti_path, mprage_path, bvalue_path, bvector_path,
-    atlas_path, mask_path, labels_path, email):
+def task_runc4(data_dir, inp, out, email):
   print "Entering c4 task ..."
-  data_dir = os.path.dirname(os.path.abspath(dti_path))
-  print "Making output dir '{}'...".format(data_dir)
-  dwnld_loc = get_download_path(data_dir)
+  content = "Congratulations,\n\nYour c4 job has started. " +\
+  "You will receive a notification when it completes."
+  sendEmail(email, "Job launch Notification", content+"\n\n")
+
+  print "Making output dir '{}'...".format(os.path.join(data_dir, out))
+  os.makedirs(os.path.join(data_dir, out))
+  dwnld_loc = get_download_path(os.path.join(data_dir, out))
 
   from pipeline.procs.runc4 import runc4
-  runc4(dti_path, mprage_path, bvalue_path, bvector_path, atlas_path,
-      mask_path, labels_path, data_dir)
+  retcode = runc4(data_dir, inp, out)
 
-  print "Emailing job completion to '{}' with dwnld_loc '{}'...".format(email, dwnld_loc)
-  sendJobCompleteEmail(email, dwnld_loc)
+  if retcode:
+    err_msg = "Hello,\n\nUnfortunately, your most recent job failed "+\
+	"with exit code '{}'. Please check your data and retry.".format(retcode)
+    sendJobFailureEmail(email, err_msg, dwnld_loc)
+  else:
+    print "Emailing job completion to '{}' with dwnld_loc '{}'...".format(email, dwnld_loc)
+    sendJobCompleteEmail(email, dwnld_loc)
+
   print "Exiting c4 task ..."
 
 @task(queue="mrocp")
-def task_build(derivatives, graph_loc, graphsize, invariants, 
+def task_build(derivatives, graph_loc, graphsize, invariants,
                         proj_dir, to_email):
   print "Entering build task ..."
-  from pipeline.procs.process_ip_data import process_input_data 
-  process_input_data(derivatives, graph_loc, graphsize, invariants, 
+  from pipeline.procs.process_ip_data import process_input_data
+  process_input_data(derivatives, graph_loc, graphsize, invariants,
                         proj_dir, to_email)
   print "Exiting build task ..."
 
@@ -174,7 +182,7 @@ def task_mp_scale(selected_files, dl_format, ds_factor, ATLASES, email=None, dwn
     zipfiles(selected_files, use_genus=True, zip_out_fn=zip_fn)
   elif get_genus(selected_files[0]) == "human" and dl_format == "ncol" and ds_factor == 0:
     zipfiles(map(get_equiv_fn, selected_files), use_genus=True, zip_out_fn=zip_fn)
-  
+
   else:
     # Create the list of task
     #"""

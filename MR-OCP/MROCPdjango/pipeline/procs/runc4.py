@@ -25,13 +25,11 @@ from django.conf import settings
 import ndmg.scripts.ndmg_pipeline as mgp
 import os
 
-def runc4(dti_path, mprage_path, bvalue_path, bvector_path,
-          atlas_path, mask_path, labels_path, outdir):
+def runc4(data_dir, inp, outp):
     """
     Job launched by webservice to execute ndmg pipeline and graph generation.
     """
-    os.mkdir(os.path.join(outdir, "tmp"))
-    pipeline = mgp.ndmg_pipeline
-    pipeline(dti_path, bvalue_path, bvector_path, mprage_path,
-        atlas_path, mask_path, [labels_path], outdir, clean=True)
-    print "Output written to {} ...".format(outdir)
+    print "Running c4. data_dir: {}, inp: {}, outp:{}".format(data_dir, inp,
+            outp)
+
+    return os.system('docker run -t -v %s:/data bids/ndmg:latest /data/%s /data/%s participant' % (data_dir, inp, outp) )
