@@ -30,22 +30,8 @@ def runc4(dti_path, mprage_path, bvalue_path, bvector_path,
     """
     Job launched by webservice to execute ndmg pipeline and graph generation.
     """
-    msg = "Dear Greg,\n\nSomeone has made more work for you. \n\n"
-    msg += "Here's some info you care about:\n"
-    msg += "- dti path: {0}\n".format(dti_path)
-    msg += "- mprage path: {0}\n".format(mprage_path)
-    msg += "- bvalue path: {0}\n".format(bvalue_path)
-    msg += "- bvector path: {0}\n".format(bvector_path)
-    msg += "- atlas path: {0}\n".format(atlas_path)
-    msg += "- mask_path path: {0}\n".format(mask_path)
-    msg += "- labels_path path: {0}\n".format(labels_path)
-    #msg += "- Requester's email: {0}\n".format(email)
-    send_mail("C4 job request", msg, settings.SERVER_EMAIL,
-              ["asidom2002@yahoo.com"], fail_silently=False)
-              #["gkiar07@gmail.com"], fail_silently=False)
-
+    os.mkdir(os.path.join(outdir, "tmp"))
     pipeline = mgp.ndmg_pipeline
     pipeline(dti_path, bvalue_path, bvector_path, mprage_path,
-        atlas_path, mask_path, labels_path, outdir, clean=True)
-
+        atlas_path, mask_path, [labels_path], outdir, clean=True)
     print "Output written to {} ...".format(outdir)

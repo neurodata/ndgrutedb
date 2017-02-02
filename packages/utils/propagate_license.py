@@ -20,7 +20,7 @@
 # Email: disa@jhu.edu
 
 __license_header__ = """
-{} Copyright 2014 Open Connectome Project (http://openconnecto.me)
+{} Copyright 2016 neurodata (http://neurodata.io/)
 {}
 {} Licensed under the Apache License, Version 2.0 (the "License");
 {} you may not use this file except in compliance with the License.
@@ -90,14 +90,14 @@ def main():
   parser.add_argument("-i", "--ignore", nargs="*", action="store", \
       default=["README", "__init__.py", "TODO", __file__], \
       help="Files to ignore")
-  
+
   result = parser.parse_args()
-  
+
   if result.files:
     print "Licensing individual files ..."
     add(result.files)
     exit(1)
-  
+
   else:
     print "Licensing a directory of files ..."
     files = []
@@ -107,7 +107,7 @@ def main():
         if os.path.isfile(full_fn) and not hidden(full_fn) \
             and not os.path.basename(full_fn) in result.ignore \
             and ( os.path.splitext(full_fn)[-1].lower().strip() in result.file_exts ):
-          files.append(full_fn) 
+          files.append(full_fn)
 
     add(files)
 
