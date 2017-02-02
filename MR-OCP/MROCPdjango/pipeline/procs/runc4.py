@@ -45,9 +45,5 @@ def runc4(data_dir, inp, out):
    #           #["gkiar07@gmail.com"], fail_silently=False)
 
    os.system('docker run -t -v %s:/data bids/ndmg:latest /data/%s /data/%s participant' % (data_dir, inp, outp) )
-   
-   # pipeline = mgp.ndmg_pipeline
-   # pipeline(dti_path, bvalue_path, bvector_path, mprage_path,
-   #     atlas_path, mask_path, labels_path, outdir, clean=True)
 
    print "Output written to {} ...".format(outdir)

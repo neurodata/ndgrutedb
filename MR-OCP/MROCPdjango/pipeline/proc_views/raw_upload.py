@@ -75,9 +75,6 @@ def raw_upload(request):
 
       task_runc4.delay(data_dir, inp, out, form.cleaned_data["email"])
 
-      sendEmail(form.cleaned_data["email"], "MR Images to graphs job started", 
-              "Hello,\n\nYour job launched successfully. You will receive another email upon completion.\n\n")
-
       request.session["success_msg"] =\
 """
 Your job successfully launched. You should receive an email to confirm launch
