@@ -100,10 +100,6 @@ def get_files(force):
 
 
 def compile_cython():
-<<<<<<< HEAD
-
-=======
->>>>>>> 8a1881e30106b77b8962668f29b7c49e7696605e
   os.chdir(os.path.join(os.environ['M2G_HOME'],"MR-OCP/mrcap/"))
   ret = call(["python", "setup.py", "install"])
   assert not ret, "Failed to run setup.py in 'mrcap' directory. Perhaps running this script with 'sudo' will help"
