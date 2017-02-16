@@ -131,10 +131,27 @@ def task_mp_invariant_compute(invariants, graph_fns, invariants_path,
     sendJobFailureEmail(to_email, err_msg, dwnld_loc)
 
 @task(queue="mrocp")
-def task_runc4(dti_path, mprage_path, bvalue_path, bvector_path, graph_size, atlas, email):
+def task_runc4(data_dir, inp, out, email):
   print "Entering c4 task ..."
+  content = "Congratulations,\n\nYour c4 job has started. " +\
+  "You will receive a notification when it completes."
+  sendEmail(email, "Job launch Notification", content+"\n\n")
+
+  print "Making output dir '{}'...".format(os.path.join(data_dir, out))
+  os.makedirs(os.path.join(data_dir, out))
+  dwnld_loc = get_download_path(os.path.join(data_dir, out))
+
   from pipeline.procs.runc4 import runc4
-  runc4(dti_path, mprage_path, bvalue_path, bvector_path, graph_size, atlas, email)
+  retcode = runc4(data_dir, inp, out)
+
+  if retcode:
+    err_msg = "Hello,\n\nUnfortunately, your most recent job failed "+\
+	"with exit code '{}'. Please check your data and retry.".format(retcode)
+    sendJobFailureEmail(email, err_msg, dwnld_loc)
+  else:
+    print "Emailing job completion to '{}' with dwnld_loc '{}'...".format(email, dwnld_loc)
+    sendJobCompleteEmail(email, dwnld_loc)
+
   print "Exiting c4 task ..."
 
 @task(queue="mrocp")

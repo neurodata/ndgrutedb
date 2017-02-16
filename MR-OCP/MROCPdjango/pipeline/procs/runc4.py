@@ -22,18 +22,14 @@
 import argparse
 from django.core.mail import send_mail
 from django.conf import settings
+import ndmg.scripts.ndmg_pipeline as mgp
+import os
 
-def runc4(dti_path, mprage_path, bvalue_path, bvector_path, graph_size, atlas, email):
-  msg = "Dear Greg,\n\nSomeone has made more work for you. \n\n"
-  msg += "Here's some info you care about:\n"
-  msg += "- dti path: {0}\n".format(dti_path)
-  msg += "- mprage path: {0}\n".format(mprage_path)
-  msg += "- bvalue path: {0}\n".format(bvalue_path)
-  msg += "- bvector path: {0}\n".format(bvector_path)
-  msg += "- graph size: {0}\n".format(graph_size)
-  msg += "- atlas: {0}\n".format(atlas)
-  msg += "- Requester's email: {0}\n".format(email)
-  send_mail("C4 job request", msg, settings.SERVER_EMAIL, ["gkiar07@gmail.com"], fail_silently=False)
+def runc4(data_dir, inp, outp):
+    """
+    Job launched by webservice to execute ndmg pipeline and graph generation.
+    """
+    print "Running c4. data_dir: {}, inp: {}, outp:{}".format(data_dir, inp,
+            outp)
 
-  print "Sending an email to people so they can process the job"
-  #TODO GK: Automate me
+    return os.system('docker run -t -v %s:/data bids/ndmg:latest /data/%s /data/%s participant' % (data_dir, inp, outp) )

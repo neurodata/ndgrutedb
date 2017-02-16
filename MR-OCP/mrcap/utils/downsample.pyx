@@ -28,6 +28,7 @@ import zipfile
 import numpy as np
 import igraph
 
+sys.path.append(os.path.abspath("../../../"))
 from zindex import MortonXYZ
 import downsample_atlas
 #cimport numpy as np # TODO

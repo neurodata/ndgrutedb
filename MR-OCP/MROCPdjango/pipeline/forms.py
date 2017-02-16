@@ -209,17 +209,13 @@ class RawUploadForm(forms.Form):
   @cvar atlas: The atlas with which to build the graph
   """
 
-  dti = forms.FileField(required=True, label="DTI")
-  mprage  = forms.FileField(required=True, label="MPRAGE")
-  bvalue =  forms.FileField(required=True)
-  bvector = forms.FileField(required=True)
+  #change_form_template = 'progressbarupload/change_form.html'
+  #add_form_template = 'progressbarupload/change_form.html'
 
-  graphsize = forms.ChoiceField(required=True, \
-      widget=Select, choices=((True,"Big"), (False,"Small")), label="Graph size")
-
-  atlas = forms.ChoiceField(required=True, \
-      widget=Select, choices=(("MNI","MNI"),))
+  dwi = forms.FileField(required=True, label="Diffusion Weighted Image (DWI)")
+  t1w  = forms.FileField(required=True, label="Structural Image (T1W/MPRAGE)")
+  bval =  forms.FileField(required=True)
+  bvec = forms.FileField(required=True)
 
   email = forms.EmailField(widget=EmailInput(attrs={"class":"tb", "size":40}), 
       required=True, error_messages={"required":"You must supply an email address"})
-

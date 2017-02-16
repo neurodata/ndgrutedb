@@ -39,33 +39,41 @@ def raw_upload(request):
   if request.method == "POST":
     form = RawUploadForm(request.POST, request.FILES) # instantiating form
     if form.is_valid():
-      # TODO: Alter save path
-      data_dir = os.path.join(settings.MEDIA_ROOT, "c4", 
-                strftime("%a%d%b%Y_%H.%M.%S/", localtime()), "derivatives")
 
-      dti = form.cleaned_data["dti"]
-      mprage = form.cleaned_data["mprage"]
-      bvalue = form.cleaned_data["bvalue"]
-      bvector = form.cleaned_data["bvector"]
+      data_dir = os.path.join(settings.MEDIA_ROOT, "c4",
+                strftime("%a%d%b%Y_%H.%M.%S/", localtime()))
+      inp = 'raw'
+      out = 'ndmg'
 
-      # Save all derivatives
-      for _file in dti, mprage, bvalue, bvector:
-        saveFileToDisk(_file, os.path.join(data_dir, _file.name))
+      dti = form.cleaned_data["dwi"]
+      mprage = form.cleaned_data["t1w"]
+      bvalue = form.cleaned_data["bval"]
+      bvector = form.cleaned_data["bvec"]
+
+      ext = ".".join(mprage.name.split('.')[1:]) # gets double exts for im files
+      mprage_fn = os.path.join(data_dir, inp, 'sub-1', 'ses-1', 'anat', 'sub-1_ses-1_T1w.%s' % ext)
+
+      ext = ".".join(dti.name.split('.')[1:]) # gets double exts for im files
+      dti_fn = os.path.join(data_dir, inp, 'sub-1', 'ses-1', 'dwi', 'sub-1_ses-1_dwi.%s' % ext)
+
+      bvalue_fn = os.path.join(data_dir, inp, 'sub-1', 'ses-1', 'dwi', 'sub-1_ses-1_dwi.bval')
+      bvector_fn = os.path.join(data_dir, inp, 'sub-1', 'ses-1', 'dwi', 'sub-1_ses-1_dwi.bvec')
+
+      saveFileToDisk(mprage, mprage_fn)
+      saveFileToDisk(dti, dti_fn)
+      saveFileToDisk(bvalue, bvalue_fn)
+      saveFileToDisk(bvector, bvector_fn)
 
       ru_model = RawUploadModel()
-      ru_model.dtipath = os.path.join(data_dir, dti.name)
-      ru_model.mpragepath = os.path.join(data_dir, mprage.name)
-      ru_model.atlas = form.cleaned_data["atlas"]
-      ru_model.graphsize = "big" if form.cleaned_data["graphsize"] == True else "small"
-      ru_model.email = form.cleaned_data["email"] 
+      ru_model.dtipath = dti_fn
+      ru_model.mpragepath = mprage_fn
+      ru_model.bvectorpath = bvector_fn
+      ru_model.bvaluepath = bvalue_fn
+
+      ru_model.email = form.cleaned_data["email"]
       ru_model.save() # Sync to Db
 
-      task_runc4.delay(ru_model.dtipath, ru_model.mpragepath,
-          os.path.join(data_dir, bvalue.name), os.path.join(data_dir, bvector.name), 
-          form.cleaned_data["graphsize"], ru_model.atlas, form.cleaned_data["email"])
-
-      sendEmail(form.cleaned_data["email"], "MR Images to graphs job started", 
-              "Hello,\n\nYour job launched successfully. You will receive another email upon completion.\n\n")
+      task_runc4.delay(data_dir, inp, out, form.cleaned_data["email"])
 
       request.session["success_msg"] =\
 """
