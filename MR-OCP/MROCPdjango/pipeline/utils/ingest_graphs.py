@@ -35,28 +35,29 @@ from time import time
 from ocpipeline.settings_secret import DATABASES as db_args
 from mrcap.utils import igraph_io
 from pipeline.utils.util import get_download_path
+from joblib import Parallel, delayed
 
 def ingest(genera, tb_name, base_dir=None, files=None, project=None):
   if files:
     print "Running specific file(s) ..."
-    assert len(genera) < 2, "Can only specify single genus as '-g [--genera] arg. You provided %s'" % genera 
-    _ingest_files(files, genera[0], tb_name)
-  
+    assert len(genera) < 2, "Can only specify single genus as '-g [--genera] arg. You provided %s'" % genera
+    _ingestfns(files, genera[0], tb_name)
+
   else:
     print "Running entire dataset ..."
     for genus in genera:
       graphs = glob(os.path.join(base_dir, genus, "*")) # Get all graphs in dir
-      _ingest_files(graphs, genus, tb_name)
+      _ingestfns(graphs, genus, tb_name)
 
   print "Checking for stale entries ..."
   clean_stale_graphs(tb_name)
 
   print "\nMission complete ..."
 
-def _ingest_files(fns, genus, tb_name):
+def _ingestfns(fns, genus, tb_name):
 
   print "Connecting to database %s ..." % db_args["default"]["NAME"]
-  db = MySQLdb.connect(host=db_args["default"]["HOST"], user=db_args["default"]["USER"], 
+  db = MySQLdb.connect(host=db_args["default"]["HOST"], user=db_args["default"]["USER"],
      passwd=db_args["default"]["PASSWORD"], db=db_args["default"]["NAME"])
   db.autocommit(True)
 
@@ -102,32 +103,67 @@ def _ingest_files(fns, genus, tb_name):
 
         # This statement puts each graph into the DB
         qry_stmt = "insert into %s.%s values (\"%s\",\"%s\",\"%s\",\"%s\",%d,%d,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%f,\"%s\");" \
-             % (db_args["default"]["NAME"], tb_name, os.path.abspath(graph_fn), genus, region, project, 
-                 np.int64(np.float64(vcount)), np.int64(np.float64(ecount)), str(graph_attrs)[1:-1].replace("'",""), 
+             % (db_args["default"]["NAME"], tb_name, os.path.abspath(graph_fn), genus, region, project,
+                 np.int64(np.float64(vcount)), np.int64(np.float64(ecount)), str(graph_attrs)[1:-1].replace("'",""),
                  str(vertex_attrs)[1:-1].replace("'",""),
                  str(edge_attrs)[1:-1].replace("'",""), sensor, source, mtime, url)
 
         cursor.execute(qry_stmt)
 
-def clean_stale_graphs(tb_name):
-  """ If we have any graphs that have been deleted we should also clean them from db """
+def clean_parallel_worker(fn, db_args, tb_name):
+    fn = fn[0]
+    if os.path.exists(fn):
+      try:
+        g = igraph.read(fn, format="graphml")
+        if (g.ecount() == 0):
+          print "Removing file: {} ...".format(fn)
+          os.remove(fn)
+        else:
+          print "File {} all good!".format(fn)
+      except:
+        print "Removing file: that failed to load {} ...".format(fn)
+        os.remove(fn)
 
+def db_connect():
   print "Connecting to database %s ..." % db_args["default"]["NAME"]
-  db = MySQLdb.connect(host=db_args["default"]["HOST"], user=db_args["default"]["USER"], 
+  db = MySQLdb.connect(host=db_args["default"]["HOST"], user=db_args["default"]["USER"],
      passwd=db_args["default"]["PASSWORD"], db=db_args["default"]["NAME"])
   db.autocommit(True)
+  return db
 
+def validate_graphs(tb_name, nthread):
+  """ Delete any broken graphs from the table """
+
+  db = db_connect()
   with closing(db.cursor()) as cursor:
     cursor.connection.autocommit(True)
     cursor.execute("select filepath from %s.%s;" % (db_args["default"]["NAME"], tb_name))
 
-    all_files = cursor.fetchall()
+    allfns = cursor.fetchall()
 
-    if all_files:
-      for fn in all_files:
-        if not os.path.exists(fn[0]):
-          print "  ===> Deleting entry with filepath %s from database ..." % fn[0]
-          cursor.execute("delete from %s.%s where filepath = \"%s\"" % (db_args["default"]["NAME"], tb_name, fn[0]))
+    if allfns:
+      print "Dealing with {} files using {} threads..".format(len(allfns),
+              nthread)
+      Parallel(n_jobs=nthread)(delayed(clean_parallel_worker)\
+              (fn, db_args, tb_name) for fn in allfns)
+
+def clean_stale_graphs(tb_name):
+  """ Clean graphs from db that don't exist on disk """
+
+  db = db_connect()
+  with closing(db.cursor()) as cursor:
+    cursor.connection.autocommit(True)
+    cursor.execute("select filepath from %s.%s;" % (db_args["default"]["NAME"], tb_name))
+
+    allfns = cursor.fetchall()
+
+    if allfns:
+      print "Found {} entries. Pruning entries ...".format(len(allfns))
+      for fn in allfns:
+        fn = fn[0]
+        if not os.path.exists(fn):
+          print "  ===> Deleting entry with filepath %s from database ..." % fn
+          cursor.execute("delete from %s.%s where filepath = \"%s\"" % (db_args["default"]["NAME"], tb_name, fn))
 
 def main():
   parser = argparse.ArgumentParser(description="Ingest the graphs within the dirs specified by 'genera' list.")
@@ -135,21 +171,34 @@ def main():
   parser.add_argument("-g", "--genera", action="store", default=["human", "macaque", "cat", "fly",
             "mouse", "rat", "worm" ] ,nargs="*", help="Can be multiple - just separate with spaces.\
             The directories where to look for file(s) default is : human macaque cat fly mouse rat worm")
-  parser.add_argument("-f", "--file_names", action="store", default=None, nargs="+", help="If you only want to ingest \
-            specific files only use this")
-  parser.add_argument("-t", "--table_name", action="store", default="pipeline_graphdownloadmodel", help="Table name in db")
-  parser.add_argument("-c", "--clean_only", action="store_true",  help="Just clean the DB of stale files that don't exist")
-
+  parser.add_argument("-f", "--file_names", action="store", default=None,\
+          nargs="+", help="For ingest of specific files only")
+  parser.add_argument("-t", "--table_name", action="store", \
+          default="pipeline_graphdownloadmodel", help="Table name in db")
+  parser.add_argument("-c", "--clean_only", action="store_true", \
+          help="Just clean the DB of stale files that don't exist")
+  parser.add_argument("-v", "--validate", action="store_true", \
+          help="validate graphs are loadable. Lengthy -- use tmux/screen ...")
   parser.add_argument("-p", "--project", action="store", help="Project the graph belongs to")
+  parser.add_argument("-n", "--nthread", action="store", type=int, \
+          default=16, help="Number of threads to use for cleaning")
   result = parser.parse_args()
 
+  if (result.validate):
+    print "Validating graphs may take a while ... consider tmux/screen ..."
+    validate_graphs(result.table_name, result.nthread)
+    print "Done validating!!"
+
   if (result.clean_only):
-      print "Running in clean only mode ..."
-      clean_stale_graphs(result.table_name)
-      exit(0);
-  
+    print "Running in clean only mode ..."
+    clean_stale_graphs(result.table_name)
+    print "Done cleaning!"
+
+  if (result.validate or result.clean_only): exit(0)
+
   print "Ingesting graph(s) ..."
-  ingest(result.genera, result.table_name, result.base_dir, result.file_names, result.project)
+  ingest(result.genera, result.table_name, result.base_dir,
+          result.file_names, result.project)
 
 if __name__ == "__main__":
   main()
